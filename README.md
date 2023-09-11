@@ -16,6 +16,38 @@ Di sini kita akan menggunakan IDE yang bernama [IntelliJ IDEA Community Edition]
 
 Setelah selesai di download, install seperti biasa.
 
+#### But... i want to use the Ultimate Edition!!! I want all the cool features!!!
+
+Oke baik, jika kamu ingin menggunakan Ultimate Edition, kamu melakukan aplikasi
+sebagai siswa pada link [berikut](https://www.jetbrains.com/shop/eform/students). Melalui aplikasi ini, kamu dapat
+mendapatkan lisensi gratis untuk menggunakan IntelliJ IDEA Ultimate Edition.
+
+**Tetapi** karena [saat ini](https://github.com/JetBrains/swot/pull/18468#issuecomment-1705051873), email `binus.ac.id` masuk ke _stoplist_ JetBrains, maka kamu tidak dapat secara
+langsung mendaftar menggunakan email `binus.ac.id`. Untuk dapat mendaftar menggunakan email `binus.ac.id`, kamu
+perlu menggunakan metode pendaftaran `Official Document`.
+
+![Jetbrain](./media/jetbrain-student.png)
+
+Pada menu ini kamu dapat melihat bahwa kamu dapat mendaftar menggunakan metode `Official Document`. Metode ini
+digunakan untuk mendaftar menggunakan dokumen resmi yang dikeluarkan oleh institusi pendidikan tempat kamu belajar.
+
+Untuk melakukannya, perhatian beberapa hal penting yang harus kamu perhatikan
+
+- **Email**: Email binus.ac.id kamu
+- **Website of your academic institution**: https://binus.ac.id
+- Centang **My educational institution provides high or higher education
+  and issues state-accredited diplomas**
+- Centang **The educational program that I am enrolled in takes one or
+  more years of full-time study to complete**
+- **Official document**: Foto Kartu Binusian kamu
+- **Official Document (Text)**: https://binus.ac.id/general-facilities-binusian-card/
+
+Setelah selesai, kamu dapat mengirimkan aplikasi tersebut. Setelah selesai, kamu dapat menunggu hingga aplikasi kamu
+disetujui oleh tim JetBrains. Jika aplikasi kamu disetujui oleh tim JetBrains, maka kamu akan menerima email dari
+JetBrains yang berisi tentang lisensi gratis untuk menggunakan IntelliJ IDEA Ultimate Edition.
+
+> Biasanya kamu akan menerima email dari JetBrains dalam waktu 1-2 minggu.
+
 ### 2. **Install Git**
 
 Apa itu Git? Git adalah salah satu Version Control System (VCS) yang paling populer saat ini. Git digunakan untuk 
