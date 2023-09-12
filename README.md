@@ -1,5 +1,9 @@
 # SeruputTeh
 
+> DISCLAIMER: DO NOT SHARE THIS REPOSITORY, THE SOURCE CODE, AND THE DOCUMENTATION TO ANYONE.
+
+# Jika sudah selesai membaca, bisa cek [PROJECT.md](./PROJECT.md) untuk melihat project yang akan dikerjakan.
+
 ## Anggota
 
 - Muhammad Stiven Pratama (2602225271)
@@ -18,7 +22,7 @@ Setelah selesai di download, install seperti biasa.
 
 #### But... i want to use the Ultimate Edition!!! I want all the cool features!!!
 
-Oke baik, jika kamu ingin menggunakan Ultimate Edition, kamu melakukan aplikasi
+Oke baik, jika kamu ingin menggunakan Ultimate Edition, kamu harus melakukan aplikasi
 sebagai siswa pada link [berikut](https://www.jetbrains.com/shop/eform/students). Melalui aplikasi ini, kamu dapat
 mendapatkan lisensi gratis untuk menggunakan IntelliJ IDEA Ultimate Edition.
 
@@ -31,7 +35,7 @@ perlu menggunakan metode pendaftaran `Official Document`.
 Pada menu ini kamu dapat melihat bahwa kamu dapat mendaftar menggunakan metode `Official Document`. Metode ini
 digunakan untuk mendaftar menggunakan dokumen resmi yang dikeluarkan oleh institusi pendidikan tempat kamu belajar.
 
-Untuk melakukannya, perhatian beberapa hal penting yang harus kamu perhatikan
+Untuk melakukannya, ada beberapa hal penting yang harus kamu perhatikan
 
 - **Email**: Email binus.ac.id kamu
 - **Website of your academic institution**: https://binus.ac.id
@@ -413,6 +417,52 @@ kita buat, kita dapat menggunakan perintah `git status`.
 ```bash
 $ git status
 ```
+
+### How to pull changes from the `master` branch
+
+_Pull_ adalah sebuah fitur yang digunakan untuk mengambil _source code_ dari _repository_.
+
+Untuk dapat mengambil _source code_ dari _repository_, kita dapat menggunakan perintah `git pull origin master`.
+
+```bash
+$ git pull <remote> <branch>
+```
+
+`<remote>` diganti dengan nama _remote_ yang ingin kamu gunakan. Contoh penggunaan perintah tersebut
+`<branch>` diganti dengan nama _branch_ yang ingin kamu gunakan. Contoh penggunaan perintah tersebut
+
+```bash
+```bash
+$ git pull origin master
+
+$ git pull origin ilham-branch
+```
+
+Misalnya kamu ingin mengambil _source code_ dari _branch_ `ilham-branch` dari sumber _remote_ bernama `origin`, maka kamu dapat menggunakan 
+perintah `git pull origin ilham-branch`.
+
+#### Kenapa `origin`?
+
+`origin` adalah nama _remote_ yang digunakan untuk menyimpan _source code_ yang telah kamu buat.
+
+Misalnya pada _Project_ ini `origin` adalah `https://github.com/Zylquinal/SeruputTeh.git`
+
+#### Bisakah saya menggunakan _remote_ lain?
+
+Tentu saja. Kamu dapat menggunakan _remote_ lain. Tetapi kamu perlu menambahkan _remote_ tersebut terlebih dahulu.
+
+```bash
+$ git remote add <remote-name> <remote-url>
+```
+
+`<remote-name>` diganti dengan nama _remote_ yang ingin kamu gunakan. Contoh penggunaan perintah tersebut
+`<remote-url>` diganti dengan URL _remote_ yang ingin kamu gunakan. Contoh penggunaan perintah tersebut
+
+```bash
+$ git remote add my-repo https://my.repo.net/my-repo.git
+```
+
+Perintah di atas akan menambahkan _remote_ baru dengan nama `my-repo` dan URL `https://my.repo.net/my-repo.git`.
 
 ### How to see the differences
 
