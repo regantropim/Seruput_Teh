@@ -1,0 +1,12 @@
+package id.seruput.api.user;
+
+import id.seruput.api.exception.CredentialErrorException;
+import id.seruput.api.exception.DataValidationException;
+
+public interface UserManager {
+
+    User login(String username, String password) throws CredentialErrorException;
+
+    User register(String username, String password, String passwordConfirmation, String phone, String address, UserGender gender, UserRole role) throws DataValidationException;
+
+}

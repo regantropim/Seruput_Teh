@@ -1,10 +1,12 @@
-package id.seruput.core;
+package id.seruput.core.database;
+
+import id.seruput.api.database.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public final class Database {
+public final class DatabaseImpl implements Database {
 
     private final String username;
     private final String database;
@@ -12,7 +14,7 @@ public final class Database {
     private final short port;
     private final Connection connection;
 
-    Database(String username, String database, String host, short port, String password) throws SQLException {
+    DatabaseImpl(String username, String database, String host, short port, String password) throws SQLException {
         this.username = username;
         this.database = database;
         this.host = host;
@@ -20,9 +22,10 @@ public final class Database {
         this.connection = setup(password);
     }
 
-    Connection setup(String password) throws SQLException {
+    private Connection setup(String password) throws SQLException {
+        password = password == null ? "" : "&password=" + password;
         return DriverManager.getConnection(String
-                .format("jdbc:mysql://%s:%d/%s?user=%s&password=%s", host, port, database, username, password));
+                .format("jdbc:mysql://%s:%d/%s?user=%s%s", host, port, database, username, password));
     }
 
     public static DatabaseBuilder builder() {
@@ -45,7 +48,7 @@ public final class Database {
         return port;
     }
 
-    public Connection getConnection() {
+    public Connection connection() {
         return connection;
     }
 
@@ -80,15 +83,25 @@ public final class Database {
             return this;
         }
 
+        /**
+         * Build a new Database object.
+         *
+         * @param password The password to connect to the database, or null if no
+         * @return A new Database object, or null if fail.
+         */
         public Database build(String password) {
             if (database != null && host != null && port != null) {
                 try {
-                    return new Database(username, database, host, port, password);
+                    return new DatabaseImpl(username, database, host, port, password);
                 } catch (SQLException e) {
                     return null;
                 }
             }
             return null;
+        }
+
+        public Database build() {
+            return build(null);
         }
 
     }

@@ -1,19 +1,28 @@
 package id.seruput.app;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import id.seruput.api.SeruputTeh;
+import id.seruput.core.SeruputTehCore;
+
 public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+    private final SeruputTeh seruputTeh;
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+    public Main(SeruputTeh seruputTeh) {
+        this.seruputTeh = seruputTeh;
     }
+
+    public static void main(String[] args) {
+        SeruputTeh seruputTeh = SeruputTehCore.create();
+        Main main = new Main(seruputTeh);
+        main.start();
+    }
+
+    public void start() {
+
+    }
+
+    public SeruputTeh seruputTeh() {
+        return seruputTeh;
+    }
+
 }
