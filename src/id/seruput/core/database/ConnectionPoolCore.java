@@ -11,10 +11,13 @@ import java.util.Vector;
 
 public class ConnectionPoolCore implements ConnectionPool {
 
-    private final Vector<Connection> connections = new Vector<>();
+    private final int size;
+    private final Vector<Connection> connections;
     private final Database database;
 
     private ConnectionPoolCore(Database database, int size) throws SQLException {
+        this.size = size;
+        this.connections = new Vector<>(size);
         this.database = database;
         for (int i = 0; i < size; i++) {
             connections.add(database.connection());
@@ -61,17 +64,17 @@ public class ConnectionPoolCore implements ConnectionPool {
 
     @Override
     public boolean isFree() {
-        return false;
+        return !connections.isEmpty();
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public int available() {
-        return 0;
+        return connections.size();
     }
 
 }
