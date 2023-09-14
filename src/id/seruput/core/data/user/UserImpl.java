@@ -22,21 +22,11 @@ public final class UserImpl implements User {
     private final UserGender gender;
     private final UserRole role;
 
-    public UserImpl(UserId id, String username, String password, String phone, String address, UserGender gender, UserRole role) {
-        this.id = id;
-        this.email = null;
-        this.username = username;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-        this.gender = gender;
-        this.role = role;
-    }
-
-    public UserImpl(UserId id, String email, String username, String password, String phone, String address, UserGender gender, UserRole role) {
+    public UserImpl(UserId id, String email, String name, String password, String phone, String address,
+                    UserGender gender, UserRole role) {
         this.id = id;
         this.email = email;
-        this.username = username;
+        this.username = name;
         this.password = password;
         this.phone = phone;
         this.address = address;
@@ -103,6 +93,20 @@ public final class UserImpl implements User {
         return new UserBuilder();
     }
 
+    @Override
+    public String toString() {
+        return "UserImpl{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", gender=" + gender +
+                ", role=" + role +
+                '}';
+    }
+
     public static class UserBuilder {
 
         private UserId id;
@@ -158,16 +162,16 @@ public final class UserImpl implements User {
             return this;
         }
 
-        public UserImpl build() {
+        public User build() {
             if (id != null && username != null && password != null && phone != null && address != null && gender != null && role != null) {
-                return new UserImpl(id, username, email, password, phone, address, gender, role);
+                return new UserImpl(id, email, username, password, phone, address, gender, role);
             }
             throw new BuilderIncompleteException("UserImpl cannot be built, data is not complete!");
         }
 
-        public UserImpl build(DataValidator<User> validator) throws DataValidationException {
+        public User build(DataValidator<User> validator) throws DataValidationException {
             try {
-                UserImpl user = build();
+                User user = build();
                 validator.validate(user);
                 return user;
             } catch (BuilderIncompleteException e) {

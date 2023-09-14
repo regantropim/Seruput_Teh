@@ -1,6 +1,8 @@
 package id.seruput.api.database;
 
-import java.sql.Connection;
+import id.seruput.api.database.pool.PooledConnection;
+import id.seruput.api.exception.EmptyConnectionPoolException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,15 +28,15 @@ public abstract class BootlegRepository<T extends Entity<K>, K> implements Repos
      */
     @Override
     public Optional<T> findById(K id) {
-        try (Connection connection = database.connection();
-             PreparedStatement statement = operationHelper.selectStatement(connection)) {
+        try (PooledConnection pool = database.fromPool();
+             PreparedStatement statement = operationHelper.selectStatement(pool.connection())) {
             operationHelper.setSelectPreparedStatement(statement, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 return Optional.of(deserialize(rs));
             }
             return Optional.empty();
-        } catch (SQLException e) {
+        } catch (SQLException | EmptyConnectionPoolException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
@@ -46,8 +48,8 @@ public abstract class BootlegRepository<T extends Entity<K>, K> implements Repos
 
     @Override
     public List<T> findAll() {
-        try (Connection connection = database.connection();
-             PreparedStatement statement = operationHelper.selectAll(connection)) {
+        try (PooledConnection pool = database.fromPool();
+             PreparedStatement statement = operationHelper.selectAll(pool.connection())) {
 
             ResultSet rs = statement.executeQuery();
             List<T> result = new ArrayList<>();
@@ -55,41 +57,41 @@ public abstract class BootlegRepository<T extends Entity<K>, K> implements Repos
                 result.add(deserialize(rs));
             }
             return result;
-        } catch (SQLException e) {
+        } catch (SQLException | EmptyConnectionPoolException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public T insert(T object) {
-        try (Connection connection = database.connection();
-             PreparedStatement statement = operationHelper.insertStatement(connection)) {
+        try (PooledConnection pool = database.fromPool();
+             PreparedStatement statement = operationHelper.insertStatement(pool.connection())) {
             operationHelper.setInsertPreparedStatement(statement, object);
             statement.executeUpdate();
             return object;
-        } catch (SQLException e) {
+        } catch (SQLException | EmptyConnectionPoolException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public void delete(T object) {
-        try (Connection connection = database.connection();
-             PreparedStatement statement = operationHelper.deleteStatement(connection)) {
+        try (PooledConnection pool = database.fromPool();
+             PreparedStatement statement = operationHelper.deleteStatement(pool.connection())) {
             operationHelper.setDeletePreparedStatement(statement, object);
             statement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | EmptyConnectionPoolException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public void update(T object) {
-        try (Connection connection = database.connection();
-             PreparedStatement statement = operationHelper.updateStatement(connection)) {
+        try (PooledConnection pool = database.fromPool();
+             PreparedStatement statement = operationHelper.updateStatement(pool.connection())) {
             operationHelper.setUpdatePreparedStatement(statement, object);
             statement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | EmptyConnectionPoolException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

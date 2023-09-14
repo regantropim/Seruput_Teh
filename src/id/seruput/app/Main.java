@@ -12,7 +12,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        SeruputTeh seruputTeh = SeruputTehCore.create();
+
+        String password = null;
+        if (args[0].startsWith("--password=")) {
+            password = args[0].substring(11);
+        }
+        SeruputTeh seruputTeh = SeruputTehCore.create(password);
+
         Main main = new Main(seruputTeh);
         main.start();
     }

@@ -11,19 +11,26 @@ public class SeruputTehCore implements SeruputTeh {
     private final UserManager userManager;
     private final Database database;
 
-    SeruputTehCore() {
+    SeruputTehCore(String databasePassword) {
         this.database = DatabaseImpl.builder()
-                .database("seruput_teh")
+                .database("seruput")
                 .host("127.0.0.1")
                 .port((short) 3306)
                 .username("root")
-                .build("1234");
+                .build(databasePassword);
+
+        if (this.database == null) {
+            throw new RuntimeException("Database connection failed");
+        }
 
         this.userManager = UserManagerImpl.build(database);
+
+        this.userManager.repository().findAll()
+                .forEach(System.out::println);
     }
 
-    public static SeruputTeh create() {
-        return new SeruputTehCore();
+    public static SeruputTeh create(String databasePassword) {
+        return new SeruputTehCore(databasePassword);
     }
 
     @Override

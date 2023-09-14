@@ -1,6 +1,7 @@
 package id.seruput.core.database;
 
 import id.seruput.api.database.Database;
+import id.seruput.api.database.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,23 +10,19 @@ import java.sql.SQLException;
 public final class DatabaseImpl implements Database {
 
     private final String username;
+    private final String password;
     private final String database;
     private final String host;
     private final short port;
-    private final Connection connection;
+    private final ConnectionPool connectionPool;
 
     DatabaseImpl(String username, String database, String host, short port, String password) throws SQLException {
         this.username = username;
+        this.password = password;
         this.database = database;
         this.host = host;
         this.port = port;
-        this.connection = setup(password);
-    }
-
-    private Connection setup(String password) throws SQLException {
-        password = password == null ? "" : "&password=" + password;
-        return DriverManager.getConnection(String
-                .format("jdbc:mysql://%s:%d/%s?user=%s%s", host, port, database, username, password));
+        this.connectionPool = ConnectionPoolCore.create(this, 10);
     }
 
     public static DatabaseBuilder builder() {
@@ -48,8 +45,14 @@ public final class DatabaseImpl implements Database {
         return port;
     }
 
-    public Connection connection() {
-        return connection;
+    public Connection connection() throws SQLException {
+        return DriverManager.getConnection(String
+                .format("jdbc:mysql://%s:%d/%s", host, port, database), username, password);
+    }
+
+    @Override
+    public ConnectionPool connectionPool() {
+        return connectionPool;
     }
 
     public static class DatabaseBuilder {
@@ -94,6 +97,7 @@ public final class DatabaseImpl implements Database {
                 try {
                     return new DatabaseImpl(username, database, host, port, password);
                 } catch (SQLException e) {
+                    e.printStackTrace();
                     return null;
                 }
             }

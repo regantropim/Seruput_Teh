@@ -2,6 +2,7 @@ package id.seruput.core.data.user;
 
 import id.seruput.api.database.DataValidator;
 import id.seruput.api.database.Database;
+import id.seruput.api.database.Repository;
 import id.seruput.api.exception.CredentialErrorException;
 import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.user.*;
@@ -67,6 +68,11 @@ public class UserManagerImpl implements UserManager {
                 .build(validator);
 
         return userRepository.insert(user);
+    }
+
+    @Override
+    public Repository<User, UserId> repository() {
+        return userRepository;
     }
 
     private UserId generateUserId(UserRole role) {
