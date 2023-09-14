@@ -24,9 +24,6 @@ public class SeruputTehCore implements SeruputTeh {
         }
 
         this.userManager = UserManagerImpl.build(database);
-
-        this.userManager.repository().findAll()
-                .forEach(System.out::println);
     }
 
     public static SeruputTeh create(String databasePassword) {
