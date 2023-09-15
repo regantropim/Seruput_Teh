@@ -2,7 +2,7 @@ package id.seruput.core;
 
 import id.seruput.api.SeruputTeh;
 import id.seruput.api.database.Database;
-import id.seruput.api.user.UserManager;
+import id.seruput.api.data.user.UserManager;
 import id.seruput.core.database.DatabaseImpl;
 import id.seruput.core.data.user.UserManagerImpl;
 
@@ -24,9 +24,6 @@ public class SeruputTehCore implements SeruputTeh {
         }
 
         this.userManager = UserManagerImpl.build(database);
-
-        this.userManager.repository().findAll()
-                .forEach(System.out::println);
     }
 
     public static SeruputTeh create(String databasePassword) {

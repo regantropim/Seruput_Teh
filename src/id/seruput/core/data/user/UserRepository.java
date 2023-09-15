@@ -1,12 +1,12 @@
 package id.seruput.core.data.user;
 
-import id.seruput.api.database.BootlegRepository;
+import id.seruput.api.database.repository.BootlegRepository;
 import id.seruput.api.database.Database;
 import id.seruput.api.database.pool.PooledConnection;
 import id.seruput.api.exception.EmptyConnectionPoolException;
-import id.seruput.api.user.User;
-import id.seruput.api.user.UserId;
-import id.seruput.api.user.UserRole;
+import id.seruput.api.data.user.User;
+import id.seruput.api.data.user.UserId;
+import id.seruput.api.data.user.UserRole;
 import id.seruput.api.util.FakeOption;
 
 import java.sql.PreparedStatement;

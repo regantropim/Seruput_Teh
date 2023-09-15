@@ -2,12 +2,15 @@ package id.seruput.core.database;
 
 import id.seruput.api.database.Database;
 import id.seruput.api.database.pool.ConnectionPool;
+import id.seruput.api.util.logger.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public final class DatabaseImpl implements Database {
+
+    private static final Logger LOGGER = Logger.getLogger(DatabaseImpl.class);
 
     private final String username;
     private final String password;
@@ -22,7 +25,7 @@ public final class DatabaseImpl implements Database {
         this.database = database;
         this.host = host;
         this.port = port;
-        this.connectionPool = ConnectionPoolCore.create(this, 10);
+        this.connectionPool = ConnectionPoolCore.create(this, 3);
     }
 
     public static DatabaseBuilder builder() {
@@ -46,8 +49,11 @@ public final class DatabaseImpl implements Database {
     }
 
     public Connection connection() throws SQLException {
-        return DriverManager.getConnection(String
+        Connection connection =  DriverManager.getConnection(String
                 .format("jdbc:mysql://%s:%d/%s", host, port, database), username, password);
+
+        LOGGER.info("Connection to database established " + connection.toString());
+        return connection;
     }
 
     @Override
@@ -97,11 +103,10 @@ public final class DatabaseImpl implements Database {
                 try {
                     return new DatabaseImpl(username, database, host, port, password);
                 } catch (SQLException e) {
-                    e.printStackTrace();
-                    return null;
+                    throw new RuntimeException(e);
                 }
             }
-            return null;
+           throw new RuntimeException("Database cannot be built, data is not complete!");
         }
 
         public Database build() {

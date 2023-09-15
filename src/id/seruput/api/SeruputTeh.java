@@ -1,7 +1,7 @@
 package id.seruput.api;
 
 import id.seruput.api.database.Database;
-import id.seruput.api.user.UserManager;
+import id.seruput.api.data.user.UserManager;
 
 public interface SeruputTeh {
 

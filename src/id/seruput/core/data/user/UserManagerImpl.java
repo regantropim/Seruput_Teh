@@ -2,10 +2,10 @@ package id.seruput.core.data.user;
 
 import id.seruput.api.database.DataValidator;
 import id.seruput.api.database.Database;
-import id.seruput.api.database.Repository;
+import id.seruput.api.database.repository.Repository;
 import id.seruput.api.exception.CredentialErrorException;
 import id.seruput.api.exception.DataValidationException;
-import id.seruput.api.user.*;
+import id.seruput.api.data.user.*;
 
 import static id.seruput.core.util.Language.*;
 

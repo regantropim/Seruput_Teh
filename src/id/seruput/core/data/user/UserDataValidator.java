@@ -2,7 +2,7 @@ package id.seruput.core.data.user;
 
 import id.seruput.api.database.DataValidator;
 import id.seruput.api.exception.DataValidationException;
-import id.seruput.api.user.User;
+import id.seruput.api.data.user.User;
 import id.seruput.api.util.FakeOption;
 
 import static id.seruput.core.util.Language.*;

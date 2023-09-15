@@ -1,30 +1,43 @@
 package id.seruput.core.data.user;
 
-import id.seruput.api.database.OperationHelper;
-import id.seruput.api.user.User;
-import id.seruput.api.user.UserGender;
-import id.seruput.api.user.UserId;
-import id.seruput.api.user.UserRole;
+import id.seruput.api.database.BootlegOperationHelper;
+import id.seruput.api.data.user.User;
+import id.seruput.api.data.user.UserGender;
+import id.seruput.api.data.user.UserId;
+import id.seruput.api.data.user.UserRole;
+import id.seruput.api.util.FakeOption;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserOperationHelper implements OperationHelper<User, UserId> {
+public class UserOperationHelper extends BootlegOperationHelper<User, UserId> {
+
+    @Override
+    public User update(ResultSet rs, User user) throws SQLException {
+        UserId id = UserId.of(rs.getString("userID"));
+        FakeOption<User> userOption = findInCache(id);
+
+        if (userOption.isPresent()) {
+            user = userOption.get();
+        } else {
+            cache(user);
+        }
+
+        return user.id(UserId.of(rs.getString("userID")))
+            .username(rs.getString("username"))
+            .password(rs.getString("password"))
+            .role(UserRole.fromName(rs.getString("role")).orElseThrow())
+            .address(rs.getString("address"))
+            .phone(rs.getString("phone_num"))
+            .gender(UserGender.fromName(rs.getString("gender")).orElseThrow())
+            .role(UserRole.fromName(rs.getString("role")).orElseThrow());
+    }
 
     @Override
     public User deserialize(ResultSet rs) throws SQLException {
-        return UserImpl.builder()
-                .id(UserId.of(rs.getString("userID")))
-                .username(rs.getString("username"))
-                .password(rs.getString("password"))
-                .address(rs.getString("address"))
-                .phone(rs.getString("phone_num"))
-                .gender(UserGender.fromName(rs.getString("gender")).orElseThrow())
-                .role(UserRole.fromName(rs.getString("role")).orElseThrow())
-                .build();
-
+        return update(rs, new UserImpl());
     }
 
     @Override
@@ -55,6 +68,12 @@ public class UserOperationHelper implements OperationHelper<User, UserId> {
     public PreparedStatement updateStatement(Connection connection) throws SQLException {
         return connection.prepareStatement(
                 "UPDATE user SET `username` = ?, `password` = ?, `role` = ?, `address` = ?, `phone_num` = ?, `gender` = ? WHERE `userID` = ?");
+    }
+
+    @Override
+    public PreparedStatement updateOrInsertStatement(Connection connection) throws SQLException {
+        return connection.prepareStatement(
+                "INSERT INTO user (`userID`, `username`, `password`, `role`, `address`, `phone_num`, `gender`) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `username` = ?, `password` = ?, `role` = ?, `address` = ?, `phone_num` = ?, `gender` = ?");
     }
 
     /**
@@ -153,6 +172,17 @@ public class UserOperationHelper implements OperationHelper<User, UserId> {
         preparedStatement.setString(4, user.address());
         preparedStatement.setString(5, user.phone());
         preparedStatement.setString(6, user.gender().getName());
+        preparedStatement.setString(7, user.id().asString());
     }
 
+    @Override
+    public void setUpdateOrInsertePreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
+        setInsertPreparedStatement(preparedStatement, user);
+        preparedStatement.setString(8, user.username());
+        preparedStatement.setString(9, user.password());
+        preparedStatement.setString(10, user.role().toString());
+        preparedStatement.setString(11, user.address());
+        preparedStatement.setString(12, user.phone());
+        preparedStatement.setString(13, user.gender().getName());
+    }
 }

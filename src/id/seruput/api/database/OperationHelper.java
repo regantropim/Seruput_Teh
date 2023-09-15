@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 public interface OperationHelper<T extends Entity<K>, K> {
 
+    T update(ResultSet rs, T t) throws SQLException;
+
     T deserialize(ResultSet resultSet) throws SQLException;
 
     PreparedStatement selectAll(Connection connection) throws SQLException;
@@ -19,6 +21,8 @@ public interface OperationHelper<T extends Entity<K>, K> {
 
     PreparedStatement updateStatement(Connection connection) throws SQLException;
 
+    PreparedStatement updateOrInsertStatement(Connection connection) throws SQLException;
+
     void setSelectPreparedStatement(PreparedStatement preparedStatement, T t) throws SQLException;
     
     void setSelectPreparedStatement(PreparedStatement preparedStatement, K id) throws SQLException;
@@ -30,5 +34,7 @@ public interface OperationHelper<T extends Entity<K>, K> {
     void setDeletePreparedStatement(PreparedStatement preparedStatement, K id) throws SQLException;
 
     void setUpdatePreparedStatement(PreparedStatement preparedStatement, T user) throws SQLException;
+
+    void setUpdateOrInsertePreparedStatement(PreparedStatement preparedStatement, T user) throws SQLException;
 
 }
