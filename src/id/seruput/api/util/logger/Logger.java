@@ -4,6 +4,8 @@ import id.seruput.api.util.date.DateFormatter;
 
 public class Logger {
 
+    private static final String TRACE_SPACE = " ".repeat(98);
+
     private final Class<?> clazz;
 
     public Logger(Class<?> clazz) {
@@ -30,11 +32,21 @@ public class Logger {
         log(LogLevel.ERROR, message);
     }
 
+    public void trace(Throwable throwable) {
+        trace(throwable.getStackTrace());
+    }
+
     public void trace(StackTraceElement[] stackTraceElements) {
         StringBuilder builder = new StringBuilder();
 
-        for (StackTraceElement stackTraceElement : stackTraceElements) {
-            builder.append(stackTraceElement.toString()).append("\n");
+        for (int i = 0; i < stackTraceElements.length; i++) {
+            String element = stackTraceElements[i].toString();
+
+            if (i > 1) {
+                builder.append(TRACE_SPACE);
+            }
+
+            builder.append(element).append("\n");
         }
 
         log(LogLevel.ERROR, builder.toString());
