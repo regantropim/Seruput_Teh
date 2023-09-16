@@ -8,7 +8,7 @@ public interface UserManager {
 
     User login(String username, String password) throws CredentialErrorException;
 
-    User register(String username, String password, String passwordConfirmation, String phone, String address, UserGender gender, UserRole role) throws DataValidationException;
+    User register(String email, String username, String password, String passwordConfirmation, String phone, String address, UserGender gender, UserRole role) throws DataValidationException;
 
     Repository<User, UserId> repository();
 

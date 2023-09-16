@@ -14,7 +14,7 @@ public class UserManagerImpl implements UserManager {
     private final Database database;
     private final UserRepository userRepository;
     private final DataValidator<User> validator;
-    private final int highestId;
+    private int highestId;
 
     private UserManagerImpl(Database database) {
         this.database = database;
@@ -43,8 +43,9 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public User register(String username, String password, String passwordConfirmation, String phone, String address,
+    public synchronized User register(String email, String username, String password, String passwordConfirmation, String phone, String address,
                          UserGender gender, UserRole role) throws DataValidationException {
+
         if (passwordConfirmation.isEmpty()) {
             throw new DataValidationException(FIELDS_EMPTY);
         }
@@ -57,17 +58,24 @@ public class UserManagerImpl implements UserManager {
             throw new DataValidationException(USER_USERNAME_ALREADY_EXISTS);
         }
 
-        UserId userId = generateUserId(role);
+        UserId userId = generateUserId();
+
         User user = UserImpl.builder()
                 .id(userId)
+                .email(email)
                 .username(username)
                 .password(password)
                 .phone(phone)
+                .address(address)
                 .gender(gender)
                 .role(role)
                 .build(validator);
 
-        return userRepository.insert(user);
+        user = userRepository.insert(user);
+
+        highestId = userId.identity();
+
+        return user;
     }
 
     @Override
@@ -75,8 +83,8 @@ public class UserManagerImpl implements UserManager {
         return userRepository;
     }
 
-    private UserId generateUserId(UserRole role) {
-        return UserId.of(highestId + 1, role);
+    private UserId generateUserId() {
+        return UserId.of(highestId + 1, UserRole.USER);
     }
 
 }

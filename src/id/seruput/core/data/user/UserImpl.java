@@ -227,6 +227,7 @@ public final class UserImpl implements User {
         public User build(DataValidator<User> validator) throws DataValidationException {
             try {
                 User user = build();
+
                 validator.validate(user);
                 return user;
             } catch (BuilderIncompleteException e) {

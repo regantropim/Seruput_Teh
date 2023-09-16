@@ -30,6 +30,16 @@ public class Logger {
         log(LogLevel.ERROR, message);
     }
 
+    public void trace(StackTraceElement[] stackTraceElements) {
+        StringBuilder builder = new StringBuilder();
+
+        for (StackTraceElement stackTraceElement : stackTraceElements) {
+            builder.append(stackTraceElement.toString()).append("\n");
+        }
+
+        log(LogLevel.ERROR, builder.toString());
+    }
+
     private void log(LogLevel level, String message) {
         String currThread = Thread.currentThread().getName();
         String currClass = clazz.getName();

@@ -97,6 +97,12 @@ public class TransactionOperationHelper extends BootlegOperationHelper<Transacti
 
     @Override
     public void setUpdateOrInsertePreparedStatement(PreparedStatement preparedStatement, Transaction user) throws SQLException {
+        String transactionId = user.transactionId().asString();
+        String userId = user.userId().asString();
 
+        preparedStatement.setString(1, transactionId);
+        preparedStatement.setString(2, userId);
+        preparedStatement.setString(3, transactionId);
+        preparedStatement.setString(4, userId);
     }
 }

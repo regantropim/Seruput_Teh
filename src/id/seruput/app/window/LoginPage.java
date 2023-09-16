@@ -1,11 +1,10 @@
-package id.seruput.app.menu;
+package id.seruput.app.window;
 
 import id.seruput.api.SeruputTeh;
 import id.seruput.api.data.user.User;
 import id.seruput.api.exception.CredentialErrorException;
 import id.seruput.api.util.logger.Logger;
 import id.seruput.app.Window;
-import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class LoginPage extends Application implements Window {
+public class LoginPage extends Window {
 
     private static final Logger logger = Logger.getLogger(LoginPage.class);
 
@@ -32,7 +31,9 @@ public class LoginPage extends Application implements Window {
     private final Label register;
     private final Button loginButton;
 
-    public LoginPage() {
+    public LoginPage(SeruputTeh seruputTeh, Stage stage) {
+        super(seruputTeh, stage);
+
         title = new Label("Login");
         title.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
 
@@ -55,7 +56,7 @@ public class LoginPage extends Application implements Window {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void scene() {
         HBox accountAskBox = new HBox(accountAsk, register);
         accountAskBox.setSpacing(5);
 
@@ -86,16 +87,13 @@ public class LoginPage extends Application implements Window {
 
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
-        primaryStage.show();
 
         register.setOnMouseClicked(this::register);
         loginButton.setOnMouseClicked(this::login);
     }
 
     private void register(MouseEvent event) {
-        RegisterPage registerPage = new RegisterPage();
-        Stage currentStage = (Stage) register.getScene().getWindow();
-        currentStage.setScene(registerPage.show());
+        new RegisterPage(seruputTeh, primaryStage).scene();
     }
 
     private void login(MouseEvent event) {

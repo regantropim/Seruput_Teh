@@ -49,7 +49,7 @@ public class UserDataValidator implements DataValidator<User> {
             }
         }
 
-        if (email.endsWith(EMAIL_DOMAIN)) {
+        if (!email.endsWith(EMAIL_DOMAIN)) {
             throw new DataValidationException(USER_EMAIL_MUST_END_WITH_GMAIL);
         }
     }
@@ -70,7 +70,7 @@ public class UserDataValidator implements DataValidator<User> {
     }
 
     private void validatePhoneNumber(String phone) throws DataValidationException {
-        if (phone.startsWith(PHONE_NUMBER_PREFIX)) {
+        if (!phone.startsWith(PHONE_NUMBER_PREFIX)) {
             throw new DataValidationException(USER_PHONE_NUMBER_PREFIX);
         }
 
