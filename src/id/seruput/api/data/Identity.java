@@ -34,4 +34,9 @@ public abstract class Identity {
         }
     }
 
+    @Override
+    public String toString() {
+        return asString();
+    }
+
 }

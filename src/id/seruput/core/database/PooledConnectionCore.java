@@ -5,14 +5,14 @@ import id.seruput.api.database.pool.PooledConnectionAbstract;
 
 import java.sql.Connection;
 
-public class PooledConnectionAbstractCore extends PooledConnectionAbstract {
+public class PooledConnectionCore extends PooledConnectionAbstract {
 
-    public PooledConnectionAbstractCore(ConnectionPool connectionPool, Connection connection) {
+    public PooledConnectionCore(ConnectionPool connectionPool, Connection connection) {
         super(connectionPool, connection);
     }
 
     static PooledConnectionAbstract create(ConnectionPool connectionPool, Connection connection) {
-        return new PooledConnectionAbstractCore(connectionPool, connection);
+        return new PooledConnectionCore(connectionPool, connection);
     }
 
 }

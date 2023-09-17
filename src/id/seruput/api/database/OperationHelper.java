@@ -27,14 +27,14 @@ public interface OperationHelper<T extends Entity<K>, K> {
     
     void setSelectPreparedStatement(PreparedStatement preparedStatement, K id) throws SQLException;
 
-    void setInsertPreparedStatement(PreparedStatement preparedStatement, T user) throws SQLException;
+    void setInsertPreparedStatement(PreparedStatement preparedStatement, T t) throws SQLException;
 
-    void setDeletePreparedStatement(PreparedStatement preparedStatement, T user) throws SQLException;
+    void setDeletePreparedStatement(PreparedStatement preparedStatement, T t) throws SQLException;
 
     void setDeletePreparedStatement(PreparedStatement preparedStatement, K id) throws SQLException;
 
-    void setUpdatePreparedStatement(PreparedStatement preparedStatement, T user) throws SQLException;
+    void setUpdatePreparedStatement(PreparedStatement preparedStatement, T t) throws SQLException;
 
-    void setUpdateOrInsertePreparedStatement(PreparedStatement preparedStatement, T user) throws SQLException;
+    void setUpdateOrInsertPreparedStatement(PreparedStatement preparedStatement, T t) throws SQLException;
 
 }

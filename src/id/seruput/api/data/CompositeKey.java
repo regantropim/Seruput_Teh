@@ -32,4 +32,12 @@ public class CompositeKey<T, U> {
         return new CompositeKey<>(t, u);
     }
 
+    @Override
+    public String toString() {
+        return "CompositeKey{" +
+                "t=" + t +
+                ", u=" + u +
+                '}';
+    }
+
 }

@@ -11,12 +11,24 @@ public interface Cart extends Entity<CompositeKey<UserId, ProductId>> {
 
     int quantity();
 
+    Cart quantity(int quantity);
+
     default UserId userId() {
         return id().first();
     }
 
+    default Cart userId(UserId userId) {
+        id().first(userId);
+        return this;
+    }
+
     default ProductId productId() {
         return id().second();
+    }
+
+    default Cart productId(ProductId productId) {
+        id().second(productId);
+        return this;
     }
 
 }

@@ -5,6 +5,8 @@ import id.seruput.api.util.logger.Logger;
 import id.seruput.app.window.LoginPage;
 import id.seruput.core.SeruputTehCore;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -32,14 +34,6 @@ public class Main extends Application {
         return seruputTeh;
     }
 
-    private static String startupLogo() {
-        return " _____                     _      _____     _                       Written By:\n" +
-                "|   __|___ ___ _ _ ___ _ _| |_   |_   _|___| |_       Farrell Alexander Hasudungan Komansilan\n" +
-                "|__   | -_|  _| | | . | | |  _|    | | | -_|   |              Muhammad Stiven Pratama\n" +
-                "|_____|___|_| |___|  _|___|_|      |_| |___|_|_|                 Reyhan Imanullah\n" +
-                "                  |_|       v 0.0.1 - SNAPSHOT                      Ilham Haris\n  ";
-    }
-
     static Main getInstance() {
         if (INSTANCE == null) {
             throw new RuntimeException("Main class not initialized");
@@ -62,7 +56,17 @@ public class Main extends Application {
         INSTANCE = this;
 
         primaryStage.show();
+        primaryStage.setResizable(false);
+
         new LoginPage(seruputTeh, primaryStage).scene();
+    }
+
+    private static String startupLogo() {
+        return " _____                     _      _____     _                       Written By:\n" +
+                "|   __|___ ___ _ _ ___ _ _| |_   |_   _|___| |_       Farrell Alexander Hasudungan Komansilan\n" +
+                "|__   | -_|  _| | | . | | |  _|    | | | -_|   |              Muhammad Stiven Pratama\n" +
+                "|_____|___|_| |___|  _|___|_|      |_| |___|_|_|                 Reyhan Imanullah\n" +
+                "                  |_|       v 0.0.1 - SNAPSHOT                     Ilham Haris\n  ";
     }
 
 }

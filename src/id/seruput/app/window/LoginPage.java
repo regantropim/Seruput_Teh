@@ -4,11 +4,10 @@ import id.seruput.api.SeruputTeh;
 import id.seruput.api.data.user.User;
 import id.seruput.api.exception.CredentialErrorException;
 import id.seruput.api.util.logger.Logger;
-import id.seruput.app.Window;
+import id.seruput.app.window.main.HomeScene;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -56,13 +55,12 @@ public class LoginPage extends Window {
     }
 
     @Override
-    public void scene() {
+    public void setup() {
         HBox accountAskBox = new HBox(accountAsk, register);
         accountAskBox.setSpacing(5);
 
         HBox loginBox = new HBox(10, loginButton);
 
-        GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -83,11 +81,12 @@ public class LoginPage extends Window {
         GridPane.setHalignment(loginButton, HPos.LEFT);
         gridPane.add(loginBox, 1, 4);
 
-        Scene scene = new Scene(gridPane, 800, 700);
-
         primaryStage.setTitle("Login");
-        primaryStage.setScene(scene);
+    }
 
+    @Override
+    protected void registerEvent() {
+        super.registerEvent();
         register.setOnMouseClicked(this::register);
         loginButton.setOnMouseClicked(this::login);
     }
@@ -103,9 +102,10 @@ public class LoginPage extends Window {
 
         try {
             User user = seruputTeh.userManager().login(username, password);
-
+            seruputTeh.currentUser(user);
+            new HomeScene(seruputTeh, primaryStage).scene();
         } catch (CredentialErrorException e) {
-            logger.error(e.getMessage());
+            logger.trace(e);
             createAlert("Error", "Failed to login", e.getMessage());
         }
     }

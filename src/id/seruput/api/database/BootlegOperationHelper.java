@@ -9,7 +9,7 @@ public abstract class BootlegOperationHelper<T extends Entity<K>, K> implements 
 
     private final List<T> tCache = new ArrayList<>();
 
-    protected final FakeOption<T> findInCache(K id) {
+    protected FakeOption<T> findInCache(K id) {
         for (T object : tCache) {
             if (object.primaryKey().equals(id)) {
                 return FakeOption.of(object);

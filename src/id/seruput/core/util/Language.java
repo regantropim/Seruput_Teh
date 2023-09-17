@@ -15,4 +15,8 @@ public class Language {
     public static final String USER_PHONE_NUMBER_PREFIX = "Phone number must start with ‘+62’";
     public static final String USER_PHONE_NUMBER_NUMERIC = "Phone number must be numeric";
 
+    /* Product */
+    public static final String PRODUCT_NAME_UNIQUE = "Product name must be unique";
+    public static final String PRODUCT_NAME_PRICE = "Product price must be more than 0";
+
 }

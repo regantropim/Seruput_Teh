@@ -103,7 +103,7 @@ public abstract class BootlegRepository<T extends Entity<K>, K> implements Repos
     public T save(T object) {
         try (PooledConnection pool = database.fromPool();
              PreparedStatement statement = operationHelper.updateOrInsertStatement(pool.connection())) {
-            operationHelper.setUpdateOrInsertePreparedStatement(statement, object);
+            operationHelper.setUpdateOrInsertPreparedStatement(statement, object);
             statement.executeUpdate();
             return object;
         } catch (SQLException | EmptyConnectionPoolException | InterruptedException e) {

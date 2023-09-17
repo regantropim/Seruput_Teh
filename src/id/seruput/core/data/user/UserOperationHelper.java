@@ -5,6 +5,7 @@ import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserGender;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.data.user.UserRole;
+import id.seruput.api.database.DataValidator;
 import id.seruput.api.util.FakeOption;
 
 import java.sql.Connection;
@@ -176,7 +177,7 @@ public class UserOperationHelper extends BootlegOperationHelper<User, UserId> {
     }
 
     @Override
-    public void setUpdateOrInsertePreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
+    public void setUpdateOrInsertPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
         setInsertPreparedStatement(preparedStatement, user);
         preparedStatement.setString(8, user.username());
         preparedStatement.setString(9, user.password());

@@ -5,6 +5,7 @@ import id.seruput.api.data.transaction.Transaction;
 import id.seruput.api.data.transaction.TransactionId;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.database.BootlegOperationHelper;
+import id.seruput.api.database.DataValidator;
 import id.seruput.api.database.OperationHelper;
 
 import java.sql.Connection;
@@ -96,7 +97,7 @@ public class TransactionOperationHelper extends BootlegOperationHelper<Transacti
     }
 
     @Override
-    public void setUpdateOrInsertePreparedStatement(PreparedStatement preparedStatement, Transaction user) throws SQLException {
+    public void setUpdateOrInsertPreparedStatement(PreparedStatement preparedStatement, Transaction user) throws SQLException {
         String transactionId = user.transactionId().asString();
         String userId = user.userId().asString();
 

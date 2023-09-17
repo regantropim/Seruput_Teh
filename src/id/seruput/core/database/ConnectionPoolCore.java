@@ -49,7 +49,7 @@ public class ConnectionPoolCore implements ConnectionPool {
 
         Connection connection = connections.remove(connections.size() - 1);
 
-        return PooledConnectionAbstractCore.create(this, connection);
+        return PooledConnectionCore.create(this, connection);
     }
 
     @Override

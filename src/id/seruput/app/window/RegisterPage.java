@@ -1,20 +1,19 @@
 package id.seruput.app.window;
 
 import id.seruput.api.SeruputTeh;
-import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserGender;
 import id.seruput.api.data.user.UserRole;
 import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.util.logger.Logger;
-import id.seruput.app.Window;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 import static id.seruput.core.util.Language.FIELDS_EMPTY;
 
@@ -98,8 +97,7 @@ public class RegisterPage extends Window {
     }
 
     @Override
-    public void scene() {
-        GridPane gridPane = new GridPane();
+    public void setup() {
         gridPane.setAlignment(Pos.CENTER);
 
         gridPane.setVgap(10);
@@ -140,12 +138,13 @@ public class RegisterPage extends Window {
 
         gridPane.add(registerButton, 1, 11);
 
+    }
+
+    @Override
+    protected void registerEvent() {
+        super.registerEvent();
         login.setOnMouseClicked(this::login);
         registerButton.setOnMouseClicked(this::register);
-
-        Scene scene = new Scene(gridPane, 800, 700);
-
-        primaryStage.setScene(scene);
     }
 
     private void login(MouseEvent mouseEvent) {
@@ -164,7 +163,7 @@ public class RegisterPage extends Window {
                 throw new DataValidationException(FIELDS_EMPTY);
             }
 
-            User user = seruputTeh.userManager().register(
+            seruputTeh.userManager().register(
                     email.getText(),
                     username.getText(),
                     password.getText(),
@@ -174,6 +173,18 @@ public class RegisterPage extends Window {
                     UserGender.fromName(genderToggle.getText()).orElseThrow(),
                     UserRole.USER
             );
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Registered successfully!");
+
+            ButtonType okButton = new ButtonType("Ok");
+            alert.getButtonTypes().setAll(okButton);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.orElseThrow() == okButton) {
+                login(mouseEvent);
+            }
 
         } catch (DataValidationException e) {
             logger.trace(e.getStackTrace());

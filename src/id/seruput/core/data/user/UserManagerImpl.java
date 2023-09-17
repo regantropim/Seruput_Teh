@@ -7,6 +7,9 @@ import id.seruput.api.exception.CredentialErrorException;
 import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.data.user.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static id.seruput.core.util.Language.*;
 
 public class UserManagerImpl implements UserManager {
@@ -14,13 +17,17 @@ public class UserManagerImpl implements UserManager {
     private final Database database;
     private final UserRepository userRepository;
     private final DataValidator<User> validator;
-    private int highestId;
+
+    private final Map<UserRole, Integer> highestId = new HashMap<>();
 
     private UserManagerImpl(Database database) {
         this.database = database;
         this.userRepository = new UserRepository(database);
         this.validator = new UserDataValidator();
-        this.highestId = userRepository.fetchHighestId(UserRole.USER).identity();
+
+        for (UserRole role : UserRole.values()) {
+            highestId.put(role, userRepository.fetchHighestId(role).identity());
+        }
     }
 
     public static UserManager build(Database database) {
@@ -58,7 +65,7 @@ public class UserManagerImpl implements UserManager {
             throw new DataValidationException(USER_USERNAME_ALREADY_EXISTS);
         }
 
-        UserId userId = generateUserId();
+        UserId userId = generateUserId(role);
 
         User user = UserImpl.builder()
                 .id(userId)
@@ -73,7 +80,7 @@ public class UserManagerImpl implements UserManager {
 
         user = userRepository.insert(user);
 
-        highestId = userId.identity();
+        highestId.put(role, userId.identity());
 
         return user;
     }
@@ -83,8 +90,8 @@ public class UserManagerImpl implements UserManager {
         return userRepository;
     }
 
-    private UserId generateUserId() {
-        return UserId.of(highestId + 1, UserRole.USER);
+    private UserId generateUserId(UserRole role) {
+        return UserId.of(highestId.get(role) + 1, role);
     }
 
 }
