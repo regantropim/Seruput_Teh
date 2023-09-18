@@ -24,7 +24,7 @@ public class SeruputTehCore implements SeruputTeh {
 
     SeruputTehCore(String databasePassword) {
         this.database = DatabaseImpl.builder()
-                .database("seruput")
+                .database("seruput_teh")
                 .host("127.0.0.1")
                 .port((short) 3306)
                 .username("root")
