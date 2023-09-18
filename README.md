@@ -240,10 +240,68 @@ Caranya adalah sebagai berikut:
 6. Pilih file `mysql-connector-java-8.0.24.jar` yang terletak di folder _libs_
 7. Klik `OK`
 
+![Project Structure](./media/project-structure-libraries.png)
 
 > Note: Library mysql-connector-java sudah disediakan di folder _libs_
 
-![Project Structure](./media/project-structure-libraries.png)
+#### 4.4 **Menambahkan library _JavaFX_ pada project**
+
+Untuk dapat menggunakan JavaFX pada project ini, kita perlu menambahkan library _JavaFX_ pada project ini.
+Caranya adalah sebagai berikut:
+
+1. Buka IntelliJ IDEA
+2. Pilih menu `File` > `Project Structure...`
+3. Pilih `Libraries`
+4. Klik `+`
+5. Pilih `Java`
+6. Pilih semua file yang terdapat di folder _libs/javafx-OS-ARCHITECTURE/libs_ dengan select all
+7. Klik `OK`
+
+![Project Structure](./media/project-structure-libraries-javafx.png)
+
+> Note: Library JavaFX sudah disediakan di folder _libs/javafx-OS-ARCHITECTURE/libs_.
+> Sesuai dengan OS dan arsitektur yang kamu gunakan.
+
+> Note: Jika kalian menggunakan CPU Intel atau AMD, maka arsitektur yang digunakan adalah `x64`.
+> Jika kalian menggunakan CPU ARM, maka arsitektur yang digunakan adalah `aarch64`.
+> Contoh dari `aarch64` adalah CPU Apple M1.
+
+#### 4.5 **Menambahkan VM Options pada project**
+
+Untuk dapat menggunakan JavaFX pada project ini, kita perlu menambahkan VM Options pada project ini.
+Hal ini kita lakukan karena JavaFX membutuhkan VM Options untuk dapat berjalan dengan baik.
+
+1. Buka IntelliJ IDEA
+2. Buka class `Main.java` yang terletak di `src/id/seruput/app/Main.java`
+3. Klik kanan pada _play button_ yang terdapat di sebelah kiri class `Main.java`
+
+![Play Button](./media/play-button.png)
+
+4. Pilih `Modify run configuration...` yang akan membuka menu di bawah ini.
+
+![Run Config](./media/modify-run-configuration.png)
+
+5. Pilih `Modify options` dan pilih `Add VM options` yang ada di dropdown menu.
+6. Masukkan VM Options dengan format seperti contoh dibawah ini (Menu ini muncul setelah kamu melakukan perintah di atas)
+
+**Windows**
+```bash
+--module-path /home/zylquinal/IdeaProjects/SeruputTeh/libs/javafx-sdk-linux-x64/lib --add-modules javafx.controls
+```
+
+**Linux**
+```bash
+--module-path "C:\Users\Zylquinal\IdeaProjects\SeruputTeh\libs\javafx-sdk-windows-x64\lib" --add-modules javafx.controls
+```
+
+Pada contoh di atas, kita milihat sebuah _directory_ yang mengarah ke lokasi JavaFX kita. Jadi untuk melakukannya
+kamu dapat mengubah _directory_ tersebut menjadi _directory_ yang mengarah ke lokasi JavaFX kamu.
+
+
+![VM Options](./media/vm-options.png)
+
+7. Klik `OK` atau `Apply`
+8. Selesai
 
 ### 5. **Menginstall database**
 
