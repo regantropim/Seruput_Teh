@@ -1,6 +1,7 @@
 package id.seruput.app.window.main;
 
 import id.seruput.api.SeruputTeh;
+import id.seruput.api.data.user.UserRole;
 import id.seruput.app.window.Window;
 import id.seruput.app.window.LoginPage;
 import javafx.geometry.VPos;
@@ -21,14 +22,19 @@ public abstract class MainWindow extends Window {
     protected final Menu cartMenu;
     protected final MenuItem cartMenuItem;
 
+    protected final Menu manageProductMenu;
+    protected final MenuItem manageProductMenuItem;
+
     protected final Menu profileMenu;
     protected final MenuItem purchaseHistoryMenuItem;
     protected final MenuItem logoutMenuItem;
 
-    protected boolean isAdmin;
+    protected final boolean isAdmin;
     
     protected MainWindow(SeruputTeh seruputTeh, Stage primaryStage) {
         super(seruputTeh, primaryStage);
+        isAdmin = currentUser().orElseThrow().role() == UserRole.ADMIN;
+
         gridPane.setVgap(10);
 
         menuBar = new MenuBar();
@@ -41,15 +47,24 @@ public abstract class MainWindow extends Window {
         cartMenu = new Menu("Cart");
         cartMenuItem = new MenuItem("My Cart");
 
+        manageProductMenu = new Menu("Manage Products");
+        manageProductMenuItem = new MenuItem("Manage Products");
+
         profileMenu = new Menu("Profile");
         purchaseHistoryMenuItem = new MenuItem("Purchase History");
         logoutMenuItem = new MenuItem("Logout");
 
         homeMenu.getItems().add(homeMenuItem);
         cartMenu.getItems().add(cartMenuItem);
-        profileMenu.getItems().addAll(purchaseHistoryMenuItem, logoutMenuItem);
+        manageProductMenu.getItems().add(manageProductMenuItem);
 
-        menuBar.getMenus().addAll(homeMenu, cartMenu, profileMenu);
+        if (isAdmin) {
+            profileMenu.getItems().addAll(logoutMenuItem);
+            menuBar.getMenus().addAll(homeMenu, manageProductMenu, profileMenu);
+        } else {
+            profileMenu.getItems().addAll(purchaseHistoryMenuItem, logoutMenuItem);
+            menuBar.getMenus().addAll(homeMenu, cartMenu, profileMenu);
+        }
     }
 
     @Override
@@ -78,11 +93,26 @@ public abstract class MainWindow extends Window {
         super.registerEvent();
 
         this.onHomeMenuItemClick();
+        this.onMyCartMenuItemClick();
+        this.onProductManagerMenuItemClick();
+        this.onPurchaseHistoryMenuItemClick();
         this.onLogoutMenuItemClick();
     }
 
     protected void onHomeMenuItemClick() {
         homeMenuItem.setOnAction(event -> new HomeScene(seruputTeh, primaryStage).scene());
+    }
+
+    protected void onMyCartMenuItemClick() {
+        cartMenuItem.setOnAction(event -> new CartScene(seruputTeh, primaryStage).scene());
+    }
+
+    protected void onProductManagerMenuItemClick() {
+        manageProductMenuItem.setOnAction(event -> new ProductManagerScene(seruputTeh, primaryStage).scene());
+    }
+
+    protected void onPurchaseHistoryMenuItemClick() {
+        purchaseHistoryMenuItem.setOnAction(event -> new PurchaseHistoryScene(seruputTeh, primaryStage).scene());
     }
     
     protected void onLogoutMenuItemClick() {

@@ -120,6 +120,15 @@ public class ProductImpl implements Product {
             }
 
         }
+    }
 
+    @Override
+    public String toString() {
+        return "ProductImpl{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productPrice=" + productPrice +
+                ", productDescription='" + productDescription + '\'' +
+                '}';
     }
 }

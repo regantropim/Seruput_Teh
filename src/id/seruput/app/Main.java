@@ -56,7 +56,6 @@ public class Main extends Application {
         INSTANCE = this;
 
         primaryStage.show();
-        primaryStage.setResizable(false);
 
         new LoginPage(seruputTeh, primaryStage).scene();
     }

@@ -1,6 +1,7 @@
 package id.seruput.api.data.cart;
 
 import id.seruput.api.data.product.ProductId;
+import id.seruput.api.data.product.ProductManager;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.exception.DataValidationException;
 
@@ -15,4 +16,7 @@ public interface CartManager {
 
     void addCart(UserId userId, ProductId productId, int quantity) throws DataValidationException;
 
+    void removeCart(Cart cart);
+
+    long calculateTotalPrice(UserId userId, ProductManager productManager);
 }

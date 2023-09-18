@@ -11,6 +11,7 @@ import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -20,10 +21,12 @@ public class HomeScene extends MainWindow {
     private final Label productNameLabel;
     private final Label productDetailLabel;
     private final Label priceLabel;
+
+    private HBox quantityBox;
     private Label quantityLabel;
     private Label totalPriceLabel;
-
     private Spinner<Integer> quantitySpinner;
+
 
     private Button addCartButton;
 
@@ -84,6 +87,9 @@ public class HomeScene extends MainWindow {
             addCartButton = new Button("Add to Cart");
             addCartButton.setMinWidth(160);
             addCartButton.setVisible(false);
+
+            quantityBox = new HBox(10);
+            quantityBox.getChildren().addAll(quantityLabel, quantitySpinner, totalPriceLabel);
         }
     }
 
@@ -115,19 +121,7 @@ public class HomeScene extends MainWindow {
         GridPane.setValignment(priceLabel, VPos.TOP);
 
         if (!isAdmin) {
-            gridPane.add(quantityLabel, 1, 5);
-            GridPane.setHalignment(quantityLabel, HPos.LEFT);
-            GridPane.setValignment(quantityLabel, VPos.TOP);
-
-            gridPane.add(quantitySpinner, 1, 5);
-            GridPane.setMargin(quantitySpinner, new Insets(0, 0, 0, 80));
-            GridPane.setHalignment(quantitySpinner, HPos.LEFT);
-            GridPane.setValignment(quantitySpinner, VPos.TOP);
-
-            gridPane.add(totalPriceLabel, 2, 5);
-            GridPane.setMargin(totalPriceLabel, new Insets(0, 0, 0, 10));
-            GridPane.setHalignment(totalPriceLabel, HPos.LEFT);
-            GridPane.setValignment(totalPriceLabel, VPos.TOP);
+            gridPane.add(quantityBox, 1, 5);
 
             gridPane.add(addCartButton, 1, 6);
             GridPane.setHalignment(addCartButton, HPos.LEFT);
@@ -142,10 +136,10 @@ public class HomeScene extends MainWindow {
 
         if (!isAdmin) {
             addCartButton.setOnMouseClicked(this::onAddToCart);
+            quantitySpinner.valueProperty().addListener(this::onQuantityChange);
         }
 
         list.getSelectionModel().selectedItemProperty().addListener(this::onProductSelected);
-        quantitySpinner.valueProperty().addListener(this::onQuantityChange);
     }
 
     private void onAddToCart(MouseEvent mouseEvent) {
@@ -156,8 +150,9 @@ public class HomeScene extends MainWindow {
         try {
             cartManager().addCart(user.id(), product.productId(), quantity);
             createAlert(Alert.AlertType.INFORMATION, "Information", "Added to Cart", null);
+            quantitySpinner.getValueFactory().setValue(1);
         } catch (DataValidationException e) {
-            createAlert("Error", "Failed to add to cart", e.getMessage());
+            createAlert("Failed to add to cart", e.getMessage());
         }
     }
 

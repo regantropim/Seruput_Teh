@@ -36,4 +36,20 @@ public class ProductRepository extends BootlegRepository<Product, ProductId> {
         }
     }
 
+    public Optional<ProductId> findHighestId() {
+        try (PooledConnection c = database.fromPool();
+             PreparedStatement statement = c.connection().prepareStatement(
+                     "SELECT productID FROM product ORDER BY productID DESC LIMIT 1"
+             )) {
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return Optional.of(ProductId.of(rs.getString("productID")));
+            }
+            return Optional.empty();
+        } catch (SQLException | EmptyConnectionPoolException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

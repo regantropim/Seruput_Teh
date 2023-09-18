@@ -2,12 +2,16 @@ package id.seruput.core.data.cart;
 
 import id.seruput.api.data.CompositeKey;
 import id.seruput.api.data.cart.Cart;
+import id.seruput.api.data.product.Product;
 import id.seruput.api.data.product.ProductId;
+import id.seruput.api.data.product.ProductManager;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.database.DataValidator;
 import id.seruput.api.exception.BuilderIncompleteException;
 import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.util.builder.EntityBuilder;
+
+import java.util.Optional;
 
 import static id.seruput.core.util.Language.FIELDS_EMPTY;
 
@@ -46,6 +50,11 @@ public class CartImpl implements Cart {
     @Override
     public CompositeKey<UserId, ProductId> primaryKey() {
         return id;
+    }
+
+    @Override
+    public Optional<Product> product(ProductManager productManager) {
+        return productManager.fetchProduct(id.second());
     }
 
     @Override

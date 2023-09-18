@@ -9,7 +9,11 @@ public interface ProductManager {
 
     Optional<Product> fetchProduct(ProductId id);
 
-    void addProduct(ProductId id, String name, long price, String description) throws DataValidationException;
+    Product addProduct(String name, long price, String description) throws DataValidationException;
+
+    void updateProduct(Product product);
+
+    void removeProduct(Product product);
 
     List<Product> products();
 

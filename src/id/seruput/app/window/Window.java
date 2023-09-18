@@ -6,7 +6,6 @@ import id.seruput.api.data.product.ProductManager;
 import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserManager;
 import id.seruput.api.util.logger.Logger;
-import id.seruput.core.data.cart.CartManagerImpl;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -15,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public abstract class Window {
 
@@ -58,8 +56,8 @@ public abstract class Window {
         return seruputTeh;
     }
 
-    protected void createAlert(String title, String header, String content) {
-        createAlert(Alert.AlertType.ERROR, title, header, content);
+    protected void createAlert(String header, String content) {
+        createAlert(Alert.AlertType.ERROR, "Error", header, content);
     }
 
     protected void createAlert(Alert.AlertType alertType, String title, String header, String content) {

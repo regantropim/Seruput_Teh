@@ -188,7 +188,7 @@ public class RegisterPage extends Window {
 
         } catch (DataValidationException e) {
             logger.trace(e.getStackTrace());
-            createAlert("Error", "Failed to Register", e.getMessage());
+            createAlert("Failed to Register", e.getMessage());
         }
     }
 

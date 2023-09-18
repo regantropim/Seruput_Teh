@@ -3,6 +3,7 @@ package id.seruput.core.data.cart;
 import id.seruput.api.data.cart.Cart;
 import id.seruput.api.data.cart.CartManager;
 import id.seruput.api.data.product.ProductId;
+import id.seruput.api.data.product.ProductManager;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.database.Database;
 import id.seruput.api.exception.DataValidationException;
@@ -45,6 +46,7 @@ public class CartManagerImpl implements CartManager {
         try {
             repository.update(cart);
             carts.computeIfAbsent(cart.userId(), userId -> new ArrayList<>()).add(cart);
+            logger.info("Cart updated: " + cart);
         } catch (RuntimeException e) {
             logger.error("Failed to update cart: " + cart);
             throw e;
@@ -85,16 +87,28 @@ public class CartManagerImpl implements CartManager {
         }
     }
 
+    @Override
     public void removeCart(Cart cart) {
         List<Cart> carts = findCart(cart.userId());
 
         try {
             repository.delete(cart);
             carts.remove(cart);
+            logger.info("Cart removed: " + cart);
         } catch (RuntimeException e) {
             logger.error("Failed to remove cart: " + cart);
             throw e;
         }
+    }
+
+    @Override
+    public long calculateTotalPrice(UserId userId, ProductManager productManager) {
+        List<Cart> carts = findCart(userId);
+        long totalPrice = 0;
+        for (Cart cart : carts) {
+            totalPrice += cart.quantity() * cart.product(productManager).orElseThrow().price();
+        }
+        return totalPrice;
     }
 
     public static CartManager build(Database database) {

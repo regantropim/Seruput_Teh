@@ -106,7 +106,7 @@ public class LoginPage extends Window {
             new HomeScene(seruputTeh, primaryStage).scene();
         } catch (CredentialErrorException e) {
             logger.trace(e);
-            createAlert("Error", "Failed to login", e.getMessage());
+            createAlert("Failed to login", e.getMessage());
         }
     }
 
