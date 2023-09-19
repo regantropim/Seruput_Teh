@@ -19,7 +19,7 @@ licensed under the GPLv2. However, note that this would not permit you to
 commingle code under an incompatible license with Oracle's GPLv2 licensed 
 code by, for example, cutting and pasting such code into a file also 
 containing Oracle's GPLv2 licensed code and then distributing the result. 
-
+1
 Additionally, if you were to remove the Classpath Exception from any of the 
 files to which it applies and distribute the result, you would likely be 
 required to license some or all of the other code in that distribution under 

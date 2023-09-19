@@ -5,8 +5,6 @@ import id.seruput.api.util.logger.Logger;
 import id.seruput.app.window.LoginPage;
 import id.seruput.core.SeruputTehCore;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.List;
