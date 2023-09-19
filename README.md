@@ -255,7 +255,8 @@ Caranya adalah sebagai berikut:
 4. Klik `+`
 5. Pilih `Java`
 6. Pilih semua file yang terdapat di folder _libs/javafx-OS-ARCHITECTURE/libs_ dengan select all
-7. Klik `OK`
+7. Jika Pengguna Windows, sebelum klik 'OK' bisa cek di bagian 4.4.1
+8. Klik `OK`
 
 ![Project Structure](./media/project-structure-libraries-javafx.png)
 
@@ -265,6 +266,24 @@ Caranya adalah sebagai berikut:
 > Note: Jika kalian menggunakan CPU Intel atau AMD, maka arsitektur yang digunakan adalah `x64`.
 > Jika kalian menggunakan CPU ARM, maka arsitektur yang digunakan adalah `aarch64`.
 > Contoh dari `aarch64` adalah CPU Apple M1.
+
+#### 4.4.1 **Menambahkan native library _JavaFX_ pada project (Windows)**
+
+Pada Windows, lokasi native library JavaFX adalah `libs/javafx-windows-x64/bin`. Untuk dapat menggunakan JavaFX pada
+Windows, kita perlu menambahkan native library JavaFX pada project ini. Caranya adalah sebagai berikut:
+
+1. Tekan tombol `+` pada bagian
+
+![Windows Native Library](./media/windows-native-javafx.png)
+
+2. Pilih `Java`
+3. Pilih semua file yang terdapat di folder `libs/javafx-windows-$ARCHITECTURE/bin` dengan select all
+4. Klik `OK`
+5. Selesai
+
+**Contoh Hasil**
+
+![Windows Native Library](./media/added-native-windows.png)
 
 #### 4.5 **Menambahkan VM Options pada project**
 
