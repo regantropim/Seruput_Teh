@@ -76,7 +76,6 @@ public class ProductManagerScene extends MainWindow {
         super(seruputTeh, primaryStage);
 
         gridPane.setVgap(10);
-        gridPane.setGridLinesVisible(true);
 
         User user = currentUser().orElseThrow();
 

@@ -1,6 +1,5 @@
 package id.seruput.core.data.transaction;
 
-import id.seruput.api.data.CompositeKey;
 import id.seruput.api.data.transaction.Transaction;
 import id.seruput.api.data.transaction.TransactionId;
 import id.seruput.api.data.user.UserId;
@@ -13,24 +12,27 @@ import static id.seruput.core.util.Language.FIELDS_EMPTY;
 
 public class TransactionImpl implements Transaction {
 
-    private final CompositeKey<TransactionId, UserId> key;
+    private final TransactionId key;
+    private final UserId userId;
 
-    public TransactionImpl(TransactionId transactionId, UserId userId) {
-        this(CompositeKey.of(transactionId, userId));
-    }
-
-    public TransactionImpl(CompositeKey<TransactionId, UserId> key) {
+    public TransactionImpl(TransactionId key, UserId userId) {
         this.key = key;
+        this.userId = userId;
     }
 
     @Override
-    public CompositeKey<TransactionId, UserId> id() {
+    public TransactionId id() {
         return key;
     }
 
     @Override
-    public CompositeKey<TransactionId, UserId> primaryKey() {
+    public TransactionId primaryKey() {
         return key;
+    }
+
+    @Override
+    public UserId userId() {
+        return userId;
     }
 
     public static TransactionImplBuilder builder() {

@@ -42,7 +42,7 @@ public class RegisterPage extends Window {
     private final PasswordField confirmPassword;
     private final TextField email;
     private final TextField phoneNumber;
-    private final TextField address;
+    private final TextArea address;
 
     public RegisterPage(SeruputTeh seruputTeh, Stage stage) {
         super(seruputTeh, stage);
@@ -89,7 +89,8 @@ public class RegisterPage extends Window {
         phoneNumber = new TextField();
         phoneNumber.setPrefWidth(300);
 
-        address = new TextField();
+        address = new TextArea();
+        address.setWrapText(true);
         address.setPrefWidth(300);
         address.setPrefHeight(150);
 

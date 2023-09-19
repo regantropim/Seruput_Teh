@@ -3,7 +3,6 @@ package id.seruput.core.data.product;
 import id.seruput.api.data.product.Product;
 import id.seruput.api.data.product.ProductId;
 import id.seruput.api.database.BootlegOperationHelper;
-import id.seruput.api.database.DataValidator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

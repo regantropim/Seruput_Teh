@@ -5,22 +5,17 @@ import id.seruput.api.data.transaction.Transaction;
 import id.seruput.api.data.transaction.TransactionId;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.database.BootlegOperationHelper;
-import id.seruput.api.database.DataValidator;
-import id.seruput.api.database.OperationHelper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TransactionOperationHelper extends BootlegOperationHelper<Transaction, CompositeKey<TransactionId, UserId>> {
+public class TransactionOperationHelper extends BootlegOperationHelper<Transaction, TransactionId> {
 
     @Override
     public Transaction update(ResultSet rs, Transaction transaction) throws SQLException {
-        transaction = cacheOrCreate(transaction);
-
-        return transaction.userId(UserId.of(rs.getString("userID")))
-                   .transactionId(TransactionId.of(rs.getString("transactionID")));
+        return transaction;
     }
 
     @Override
@@ -68,9 +63,8 @@ public class TransactionOperationHelper extends BootlegOperationHelper<Transacti
     }
 
     @Override
-    public void setSelectPreparedStatement(PreparedStatement preparedStatement, CompositeKey<TransactionId, UserId> id) throws SQLException {
-        preparedStatement.setString(1, id.first().asString());
-        preparedStatement.setString(2, id.second().asString());
+    public void setSelectPreparedStatement(PreparedStatement preparedStatement, TransactionId id) throws SQLException {
+        preparedStatement.setString(1, id.asString());
     }
 
     @Override
@@ -85,9 +79,8 @@ public class TransactionOperationHelper extends BootlegOperationHelper<Transacti
     }
 
     @Override
-    public void setDeletePreparedStatement(PreparedStatement preparedStatement, CompositeKey<TransactionId, UserId> id) throws SQLException {
-        preparedStatement.setString(1, id.first().asString());
-        preparedStatement.setString(2, id.second().asString());
+    public void setDeletePreparedStatement(PreparedStatement preparedStatement, TransactionId id) throws SQLException {
+        preparedStatement.setString(1, id.asString());
     }
 
     @Override

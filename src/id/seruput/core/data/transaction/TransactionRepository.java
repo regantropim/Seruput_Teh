@@ -16,11 +16,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class TransactionRepository extends BootlegRepository<Transaction, CompositeKey<TransactionId, UserId>> {
+public class TransactionRepository extends BootlegRepository<Transaction, TransactionId> {
 
-    public TransactionRepository(Database database) {
-        super(database, new TransactionOperationHelper());
+    public TransactionRepository(Database database, TransactionOperationHelper operationHelper) {
+        super(database, operationHelper);
     }
 
     public List<Transaction> findTransactionByUser(User user) {
@@ -41,6 +42,21 @@ public class TransactionRepository extends BootlegRepository<Transaction, Compos
             return transactions;
         } catch (SQLException | InterruptedException | EmptyConnectionPoolException e) {
             throw  new RuntimeException(e);
+        }
+    }
+
+    public Optional<TransactionId> findHighestId() {
+        try (PooledConnection c = database.fromPool();
+             PreparedStatement statement = c.connection().prepareStatement(
+                     "SELECT transactionID FROM transaction_header ORDER BY transactionID DESC LIMIT 1"
+             )) {
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return Optional.of(TransactionId.of(rs.getString("transactionID")));
+            }
+            return Optional.empty();
+        } catch (SQLException | InterruptedException | EmptyConnectionPoolException e) {
+            throw new RuntimeException(e);
         }
     }
 
