@@ -59,7 +59,7 @@ public class HomeScene extends MainWindow {
 
         list.getItems().addAll(seruputTeh.productManager().products());
 
-        welcomeUserLabel = new Label("Welcome, Ilham");
+        welcomeUserLabel = new Label("Welcome, " + currentUser().orElseThrow().username());
         welcomeUserLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
 
         productNameLabel = new Label("Product Name");
