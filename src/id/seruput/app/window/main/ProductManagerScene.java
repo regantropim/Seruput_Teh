@@ -259,7 +259,12 @@ public class ProductManagerScene extends MainWindow {
             price.setText("Price: Rp. " + newValue.price());
             price.setVisible(true);
 
-            productEditBox.setVisible(true);
+            productEditBox.setVisible(!addProductBox.isVisible());
+            addProductButton.setVisible(!addProductBox.isVisible());
+
+            removeProductBox.setVisible(false);
+            updateProductBox.setVisible(false);
+
         } else {
             productDetail.setText("Select a product to view");
             productDetail.setVisible(true);
