@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDetailRepository extends BootlegRepository<TransactionDetail, CompositeKey<TransactionId, ProductId>> {
+
     public TransactionDetailRepository(Database database) {
         super(database, new TransactionDetailOperationHelper());
     }

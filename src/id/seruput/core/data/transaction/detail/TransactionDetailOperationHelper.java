@@ -15,12 +15,18 @@ public class TransactionDetailOperationHelper extends BootlegOperationHelper<Tra
 
     @Override
     public TransactionDetail update(ResultSet rs, TransactionDetail transactionDetail) throws SQLException {
-        return null;
+        return transactionDetail.quantity(rs.getInt("quantity"));
     }
 
     @Override
     public TransactionDetail deserialize(ResultSet resultSet) throws SQLException {
-        return null;
+        return TransactionDetailImpl.builder()
+                .key(CompositeKey.of(
+                        TransactionId.of(resultSet.getString("transactionID")),
+                        ProductId.of(resultSet.getString("productID"))
+                ))
+                .quantity(resultSet.getInt("quantity"))
+                .build();
     }
 
     @Override

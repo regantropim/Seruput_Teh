@@ -15,7 +15,7 @@ public class TransactionDetailImpl implements TransactionDetail {
 
     private final CompositeKey<TransactionId, ProductId> key;
 
-    private final int quantity;
+    private int quantity;
 
     public TransactionDetailImpl(TransactionId transactionId, ProductId productId, int quantity) {
         this(CompositeKey.of(transactionId, productId), quantity);
@@ -37,8 +37,18 @@ public class TransactionDetailImpl implements TransactionDetail {
     }
 
     @Override
+    public TransactionDetail quantity(int quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    @Override
     public CompositeKey<TransactionId, ProductId> primaryKey() {
         return key;
+    }
+
+    public static TransactionDetailBuilder builder() {
+        return new TransactionDetailBuilder();
     }
 
     public static class TransactionDetailBuilder implements EntityBuilder<TransactionDetail> {
@@ -67,7 +77,7 @@ public class TransactionDetailImpl implements TransactionDetail {
 
         @Override
         public TransactionDetail build() {
-            if (key.first() != null && key.second() != null) {
+            if (key.first() != null && key.second() != null && quantity > 0) {
                 return new TransactionDetailImpl(key, quantity);
             } else {
                 throw new BuilderIncompleteException("TransactionDetailImpl can't be built, data is not complete!");

@@ -10,6 +10,8 @@ public interface TransactionDetail extends Entity<CompositeKey<TransactionId, Pr
 
     int quantity();
 
+    TransactionDetail quantity(int quantity);
+
     default TransactionId transactionId() {
         return id().first();
     }
