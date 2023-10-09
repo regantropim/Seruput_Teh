@@ -9,7 +9,10 @@ import id.seruput.api.database.Database;
 import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.util.logger.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CartManagerImpl implements CartManager {
 
@@ -98,6 +101,19 @@ public class CartManagerImpl implements CartManager {
         } catch (RuntimeException e) {
             logger.error("Failed to remove cart: " + cart);
             throw e;
+        }
+    }
+
+    @Override
+    public void clearCart(UserId userId) throws Exception {
+        List<Cart> carts = findCart(userId);
+        try {
+            repository.clearCart(userId);
+            carts.clear();
+            logger.info("Cart cleared: " + userId);
+        } catch (RuntimeException e) {
+            logger.error("Failed to clear cart: " + userId);
+            throw new Exception(e);
         }
     }
 

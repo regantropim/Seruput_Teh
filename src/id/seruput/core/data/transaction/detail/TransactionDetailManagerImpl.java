@@ -5,6 +5,7 @@ import id.seruput.api.data.transaction.TransactionDetail;
 import id.seruput.api.data.transaction.TransactionDetailManager;
 import id.seruput.api.data.transaction.TransactionId;
 import id.seruput.api.database.Database;
+import id.seruput.api.util.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class TransactionDetailManagerImpl implements TransactionDetailManager {
+
+    private static final Logger log = Logger.getLogger(TransactionDetailManagerImpl.class);
 
     private final Database database;
     private final TransactionDetailRepository repository;
@@ -39,8 +42,9 @@ public class TransactionDetailManagerImpl implements TransactionDetailManager {
                 .quantity(quantity)
                 .build();
 
-        repository.save(transactionDetail);
-        transactionDetails.get(transactionId).add(transactionDetail);
+        repository.insert(transactionDetail);
+        fetchDetailByTransactionId(transactionId).add(transactionDetail);
+        log.info("Transaction Detail added: " + transactionDetail);
     }
 
 }

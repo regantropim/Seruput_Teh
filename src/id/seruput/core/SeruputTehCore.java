@@ -3,13 +3,15 @@ package id.seruput.core;
 import id.seruput.api.SeruputTeh;
 import id.seruput.api.data.cart.CartManager;
 import id.seruput.api.data.product.ProductManager;
+import id.seruput.api.data.transaction.TransactionManager;
 import id.seruput.api.data.user.User;
-import id.seruput.api.database.Database;
 import id.seruput.api.data.user.UserManager;
+import id.seruput.api.database.Database;
 import id.seruput.core.data.cart.CartManagerImpl;
 import id.seruput.core.data.product.ProductManagerImpl;
-import id.seruput.core.database.DatabaseImpl;
+import id.seruput.core.data.transaction.TransactionManagerImpl;
 import id.seruput.core.data.user.UserManagerImpl;
+import id.seruput.core.database.DatabaseImpl;
 
 import java.util.Optional;
 
@@ -17,6 +19,7 @@ public class SeruputTehCore implements SeruputTeh {
 
     private final UserManager userManager;
     private final ProductManager productManager;
+    private final TransactionManager transactionManager;
     private final CartManager cartManager;
     private final Database database;
 
@@ -37,6 +40,7 @@ public class SeruputTehCore implements SeruputTeh {
         this.userManager = UserManagerImpl.build(database);
         this.productManager = ProductManagerImpl.build(database);
         this.cartManager = CartManagerImpl.build(database);
+        this.transactionManager = TransactionManagerImpl.build(database);
     }
 
     public static SeruputTeh create(String databasePassword) {
@@ -56,6 +60,11 @@ public class SeruputTehCore implements SeruputTeh {
     @Override
     public ProductManager productManager() {
         return productManager;
+    }
+
+    @Override
+    public TransactionManager transactionManager() {
+        return transactionManager;
     }
 
     @Override

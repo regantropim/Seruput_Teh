@@ -1,11 +1,10 @@
 package id.seruput.core.data.user;
 
-import id.seruput.api.database.BootlegOperationHelper;
 import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserGender;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.data.user.UserRole;
-import id.seruput.api.database.DataValidator;
+import id.seruput.api.database.BootlegOperationHelper;
 import id.seruput.api.util.FakeOption;
 
 import java.sql.Connection;

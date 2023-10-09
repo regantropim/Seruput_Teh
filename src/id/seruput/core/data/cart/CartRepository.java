@@ -60,4 +60,16 @@ public class CartRepository extends BootlegRepository<Cart, CompositeKey<UserId,
         }
     }
 
+    public int clearCart(UserId userId) {
+        try(PooledConnection connection = database.fromPool();
+            PreparedStatement statement = connection.connection().prepareStatement(
+                    "DELETE FROM cart WHERE userID = ?"
+            )) {
+            statement.setString(1, userId.asString());
+            return statement.executeUpdate();
+        } catch (EmptyConnectionPoolException | SQLException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

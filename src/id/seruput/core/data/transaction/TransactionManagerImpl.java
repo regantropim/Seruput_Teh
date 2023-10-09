@@ -1,5 +1,6 @@
 package id.seruput.core.data.transaction;
 
+import id.seruput.api.data.Identity;
 import id.seruput.api.data.cart.Cart;
 import id.seruput.api.data.product.ProductManager;
 import id.seruput.api.data.transaction.Transaction;
@@ -27,12 +28,15 @@ public class TransactionManagerImpl implements TransactionManager {
 
     private final Map<TransactionId, Transaction> transactions = new HashMap<>();
 
-
     TransactionManagerImpl(Database database) {
         this.database = database;
         this.repository = new TransactionRepository(database, new TransactionOperationHelper());
         this.transactionDetailManager = new TransactionDetailManagerImpl(database);
-        this.highestId = repository.findHighestId().map(i -> highestId).orElse(0);
+        this.highestId = repository.findHighestId().map(Identity::identity).orElse(0);
+    }
+
+    public static TransactionManager build(Database database) {
+        return new TransactionManagerImpl(database);
     }
 
     @Override
@@ -44,10 +48,10 @@ public class TransactionManagerImpl implements TransactionManager {
                 .build();
 
         if (fetchTransaction(transactionId).isPresent()) {
-            throw new DataValidationException("Failed to Purchase, Data already exist!");
+            throw new DataValidationException("Failed to Purchase, Data already exist! data: " + transactionId);
         }
 
-        repository.save(transaction);
+        repository.insert(transaction);
 
         carts.stream()
                 .collect(Collectors.toMap(cart -> cart.product(manager).orElseThrow(), cart -> cart))

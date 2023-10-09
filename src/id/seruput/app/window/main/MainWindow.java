@@ -2,8 +2,8 @@ package id.seruput.app.window.main;
 
 import id.seruput.api.SeruputTeh;
 import id.seruput.api.data.user.UserRole;
-import id.seruput.app.window.Window;
 import id.seruput.app.window.LoginPage;
+import id.seruput.app.window.Window;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;

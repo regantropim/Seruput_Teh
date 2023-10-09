@@ -97,4 +97,11 @@ public class TransactionDetailImpl implements TransactionDetail {
 
     }
 
+    @Override
+    public String toString() {
+        return "TransactionDetailImpl{" +
+                "key=" + key +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

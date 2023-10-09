@@ -1,12 +1,10 @@
 package id.seruput.core.data.transaction;
 
-import id.seruput.api.data.CompositeKey;
 import id.seruput.api.data.transaction.Transaction;
 import id.seruput.api.data.transaction.TransactionId;
 import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.database.Database;
-import id.seruput.api.database.OperationHelper;
 import id.seruput.api.database.pool.PooledConnection;
 import id.seruput.api.database.repository.BootlegRepository;
 import id.seruput.api.exception.EmptyConnectionPoolException;

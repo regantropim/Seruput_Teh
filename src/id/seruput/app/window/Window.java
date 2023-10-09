@@ -24,11 +24,14 @@ public abstract class Window {
     protected final Logger logger = Logger.getLogger(getClass());
 
     protected Window(SeruputTeh seruputTeh, Stage primaryStage) {
+        this(seruputTeh, primaryStage, new Scene(new GridPane(), 900, 800));
+    }
+
+    protected Window(SeruputTeh seruputTeh, Stage primaryStage, Scene scene) {
         this.seruputTeh = seruputTeh;
         this.primaryStage = primaryStage;
-
-        gridPane = new GridPane();
-        scene = new Scene(gridPane, 900, 800);
+        this.scene = scene;
+        this.gridPane = (GridPane) scene.getRoot();
     }
 
     public void scene() {

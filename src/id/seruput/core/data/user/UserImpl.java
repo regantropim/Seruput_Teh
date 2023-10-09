@@ -1,14 +1,14 @@
 package id.seruput.core.data.user;
 
-import id.seruput.api.util.builder.EntityBuilder;
-import id.seruput.api.database.DataValidator;
-import id.seruput.api.exception.BuilderIncompleteException;
-import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserGender;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.data.user.UserRole;
+import id.seruput.api.database.DataValidator;
+import id.seruput.api.exception.BuilderIncompleteException;
+import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.util.FakeOption;
+import id.seruput.api.util.builder.EntityBuilder;
 
 import static id.seruput.core.util.Language.FIELDS_EMPTY;
 

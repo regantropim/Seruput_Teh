@@ -1,6 +1,5 @@
 package id.seruput.api.data.transaction;
 
-import id.seruput.api.data.CompositeKey;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.database.Entity;
 

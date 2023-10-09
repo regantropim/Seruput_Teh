@@ -18,5 +18,7 @@ public interface CartManager {
 
     void removeCart(Cart cart);
 
+    void clearCart(UserId userId) throws Exception;
+
     long calculateTotalPrice(UserId userId, ProductManager productManager);
 }

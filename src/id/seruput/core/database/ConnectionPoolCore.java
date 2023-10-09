@@ -1,7 +1,7 @@
 package id.seruput.core.database;
 
-import id.seruput.api.database.pool.ConnectionPool;
 import id.seruput.api.database.Database;
+import id.seruput.api.database.pool.ConnectionPool;
 import id.seruput.api.database.pool.PooledConnectionAbstract;
 import id.seruput.api.exception.EmptyConnectionPoolException;
 

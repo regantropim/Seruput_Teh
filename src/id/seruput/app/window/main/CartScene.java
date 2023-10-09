@@ -4,6 +4,7 @@ import id.seruput.api.SeruputTeh;
 import id.seruput.api.data.cart.Cart;
 import id.seruput.api.data.product.Product;
 import id.seruput.api.data.user.User;
+import id.seruput.app.window.popup.PurchaseConfirmationWindow;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -184,6 +185,7 @@ public class CartScene extends MainWindow {
     @Override
     protected void registerEvent() {
         super.registerEvent();
+        purchaseButton.setOnMouseClicked(this::onProductPurchase);
         removeButton.setOnMouseClicked(this::onProductRemove);
         updateButton.setOnMouseClicked(this::onProductUpdate);
         quantitySpinner.valueProperty().addListener(this::onQuantityChange);
@@ -310,6 +312,14 @@ public class CartScene extends MainWindow {
             updateButton.setVisible(false);
             removeButton.setVisible(false);
         }
+    }
+
+    private void onProductPurchase(MouseEvent event) {
+        Stage popup = new Stage();
+        PurchaseConfirmationWindow window = new PurchaseConfirmationWindow(seruputTeh, popup, () -> {
+            new CartScene(seruputTeh, primaryStage).scene();
+        });
+        window.scene();
     }
 
     private String formatProduct(Cart cart) {

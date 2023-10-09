@@ -33,12 +33,13 @@ public class Logger {
     }
 
     public void trace(Throwable throwable) {
-        trace(throwable.getStackTrace());
+        trace(throwable.getMessage(), throwable.getStackTrace());
     }
 
-    public void trace(StackTraceElement[] stackTraceElements) {
+    public void trace(String message, StackTraceElement[] stackTraceElements) {
         StringBuilder builder = new StringBuilder();
 
+        builder.append(message).append("\n");
         for (int i = 0; i < stackTraceElements.length; i++) {
             String element = stackTraceElements[i].toString();
 

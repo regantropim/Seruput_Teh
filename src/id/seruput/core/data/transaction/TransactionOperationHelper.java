@@ -1,6 +1,5 @@
 package id.seruput.core.data.transaction;
 
-import id.seruput.api.data.CompositeKey;
 import id.seruput.api.data.transaction.Transaction;
 import id.seruput.api.data.transaction.TransactionId;
 import id.seruput.api.data.user.UserId;
@@ -33,7 +32,7 @@ public class TransactionOperationHelper extends BootlegOperationHelper<Transacti
 
     @Override
     public PreparedStatement selectStatement(Connection connection) throws SQLException {
-        return connection.prepareStatement("SELECT * FROM transaction_header WHERE transactionID = ? and userID = ?");
+        return connection.prepareStatement("SELECT * FROM transaction_header WHERE transactionID = ?");
     }
 
     @Override
