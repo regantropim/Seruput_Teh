@@ -11,6 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -48,7 +51,9 @@ public class RegisterPage extends Window {
         super(seruputTeh, stage);
 
         title = new Label("Register");
-        title.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
+//        title.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
+        title.setFont(Font.font("System", FontWeight.BOLD, 40));
+
 
         usernameLabel = new Label("Username :");
         passwordLabel = new Label("Password :");
@@ -60,7 +65,8 @@ public class RegisterPage extends Window {
         accountAsk = new Label("Already have account?");
 
         login = new Label("Login here");
-        login.setStyle("-fx-text-fill: #007bff;");
+//        login.setStyle("-fx-text-fill: #007bff;");
+        login.setTextFill(Color.web("#007bff"));
 
         genderGroup = new ToggleGroup();
 
@@ -164,7 +170,7 @@ public class RegisterPage extends Window {
                 throw new DataValidationException(FIELDS_EMPTY);
             }
 
-            seruputTeh.userManager().register(
+            userManager().register(
                     email.getText(),
                     username.getText(),
                     password.getText(),

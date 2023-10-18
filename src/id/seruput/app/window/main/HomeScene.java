@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -39,7 +41,7 @@ public class HomeScene extends MainWindow {
         gridPane.setVgap(10);
 
         title = new Label("SeRuput Teh");
-        title.setStyle("-fx-font-size: 35px; -fx-font-weight: bold;");
+        title.setFont(Font.font("System", FontWeight.BOLD, 35));
 
         list = new ListView<>();
         list.setCellFactory(new Callback<>() {
@@ -60,11 +62,11 @@ public class HomeScene extends MainWindow {
         list.getItems().addAll(seruputTeh.productManager().products());
 
         welcomeUserLabel = new Label("Welcome, " + currentUser().orElseThrow().username());
-        welcomeUserLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        welcomeUserLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
 
         productNameLabel = new Label("Product Name");
         productNameLabel.setVisible(false);
-        productNameLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        productNameLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
 
         productDetailLabel = new Label("Select a product to view");
         productDetailLabel.setWrapText(true);

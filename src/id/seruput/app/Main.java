@@ -1,7 +1,6 @@
 package id.seruput.app;
 
 import id.seruput.api.SeruputTeh;
-import id.seruput.api.util.logger.Logger;
 import id.seruput.app.window.LoginPage;
 import id.seruput.core.SeruputTehCore;
 import javafx.application.Application;
@@ -11,32 +10,9 @@ import java.util.List;
 
 public class Main extends Application {
 
-    private static final Logger logger = Logger.getLogger(Main.class);
-
-    private static Main INSTANCE = null;
-
-    private SeruputTeh seruputTeh;
-
-    public Main() {
-
-    }
-
     public static void main(String[] args) {
-
         System.out.println(startupLogo());
         Application.launch(args);
-
-    }
-
-    public SeruputTeh seruputTeh() {
-        return seruputTeh;
-    }
-
-    static Main getInstance() {
-        if (INSTANCE == null) {
-            throw new RuntimeException("Main class not initialized");
-        }
-        return INSTANCE;
     }
 
     @Override
@@ -49,9 +25,7 @@ public class Main extends Application {
             }
         }
 
-        seruputTeh = SeruputTehCore.create(password);
-
-        INSTANCE = this;
+        SeruputTeh seruputTeh = SeruputTehCore.create(password);
 
         primaryStage.show();
 

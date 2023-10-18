@@ -15,6 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class LoginPage extends Window {
@@ -34,7 +37,8 @@ public class LoginPage extends Window {
         super(seruputTeh, stage);
 
         title = new Label("Login");
-        title.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
+//        title.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
+        title.setFont(Font.font("System", FontWeight.BOLD, 40));
 
         usernameLabel = new Label("Username :");
         username = new TextField();
@@ -48,7 +52,8 @@ public class LoginPage extends Window {
 
         accountAsk = new Label("Don't have account yet?");
         register = new Label("Register here");
-        register.setStyle("-fx-text-fill: #007bff;");
+//        register.setStyle("-fx-text-fill: #007bff;");
+        register.setTextFill(Color.web("#007bff"));
 
         loginButton = new Button("Login");
         loginButton.setPrefWidth(150);

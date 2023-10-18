@@ -1,6 +1,7 @@
 package id.seruput.api.util.date;
 
 public class DateFormatter {
+
     private static final long MILLISECONDS_IN_SECOND = 1000;
     private static final long SECONDS_IN_MINUTE = 60;
     private static final long MINUTES_IN_HOUR = 60;
@@ -15,7 +16,6 @@ public class DateFormatter {
 
     private static final int[] DAYS_IN_MONTH_NON_LEAP = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    // Accept input as milliseconds
     public static String formatDateFromEpoch(long epochMillis) {
         return formatDateFromEpoch(epochMillis, 0);
     }
@@ -26,7 +26,7 @@ public class DateFormatter {
 
         while (epochMillis >= MILLISECONDS_IN_YEAR) {
             if (isLeapYear(year)) {
-                epochMillis -= MILLISECONDS_IN_DAY; // subtract extra day for a leap year
+                epochMillis -= MILLISECONDS_IN_DAY;
             }
             epochMillis -= MILLISECONDS_IN_YEAR;
             year++;

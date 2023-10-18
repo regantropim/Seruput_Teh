@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -53,7 +55,7 @@ public class CartScene extends MainWindow {
         User currentUser = currentUser().orElseThrow();
 
         title = new Label(currentUser.username() + "'s Cart");
-        title.setStyle("-fx-font-size: 35px; -fx-font-weight: bold;");
+        title.setFont(Font.font("System", FontWeight.BOLD, 35));
 
         list = new ListView<>();
         list.setCellFactory(new Callback<>() {
@@ -76,7 +78,7 @@ public class CartScene extends MainWindow {
         list.getItems().addAll(cart);
 
         welcomeUserLabel = new Label("Welcome, " + currentUser.username());
-        welcomeUserLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        welcomeUserLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
         welcomeUserLabel.setVisible(!cart.isEmpty());
 
         productNameLabel = new Label("Product Name");
@@ -84,7 +86,7 @@ public class CartScene extends MainWindow {
 
 
         emptyCartTitleLabel = new Label("No item in cart");
-        emptyCartTitleLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        emptyCartTitleLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
         emptyCartTitleLabel.setVisible(cart.isEmpty());
 
         emptyCartDetailLabel = new Label("Consider adding one");
@@ -107,7 +109,7 @@ public class CartScene extends MainWindow {
         totalPriceSingleLabel.setVisible(false);
 
         orderInformationLabel = new Label("Order Information");
-        orderInformationLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        orderInformationLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
 
         usernameLabel = new Label("Username: " + currentUser.username());
         phoneNumberLabel = new Label("Phone Number: " + currentUser.phone());
@@ -316,9 +318,8 @@ public class CartScene extends MainWindow {
 
     private void onProductPurchase(MouseEvent event) {
         Stage popup = new Stage();
-        PurchaseConfirmationWindow window = new PurchaseConfirmationWindow(seruputTeh, popup, () -> {
-            new CartScene(seruputTeh, primaryStage).scene();
-        });
+        PurchaseConfirmationWindow window = new PurchaseConfirmationWindow(seruputTeh, popup,
+                () -> new CartScene(seruputTeh, primaryStage).scene());
         window.scene();
     }
 

@@ -11,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -80,10 +82,10 @@ public class ProductManagerScene extends MainWindow {
         User user = currentUser().orElseThrow();
 
         title = new Label("Manage Products");
-        title.setStyle("-fx-font-size: 35px; -fx-font-weight: bold;");
+        title.setFont(Font.font("System", FontWeight.BOLD, 35));
 
         welcomeMessage = new Label("Welcome, " + user.username());
-        welcomeMessage.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        welcomeMessage.setFont(Font.font("System", FontWeight.BOLD, 13));
 
         productDetail = new Label("Select a product to Update");
         productDetail.setWrapText(true);
@@ -112,13 +114,15 @@ public class ProductManagerScene extends MainWindow {
         addProductBox.setMaxWidth(400);
 
         productNameLabel = new Label("Input Product Name");
-        productNameLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        productNameLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
 
         productPriceLabel = new Label("Input Product Price");
-        productPriceLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        productPriceLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
+
 
         productDescriptionLabel = new Label("Input Product Description...");
-        productDescriptionLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        productDescriptionLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
+
 
         productName = new TextField();
         productName.setPromptText("Input product name");
@@ -147,7 +151,7 @@ public class ProductManagerScene extends MainWindow {
         removeProductBox.setVisible(false);
 
         removeProductLabelConfirm = new Label("Are you sure, you want to remove this product?");
-        removeProductLabelConfirm.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        removeProductLabelConfirm.setFont(Font.font("System", FontWeight.BOLD, 13));
 
         removeProductButtonBox = new HBox(10);
 
@@ -164,7 +168,7 @@ public class ProductManagerScene extends MainWindow {
         updateProductBox.setVisible(false);
 
         updateProductLabel = new Label("Update Product");
-        updateProductLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        updateProductLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
 
         updateProductUpdateButtonBox = new HBox(10);
 

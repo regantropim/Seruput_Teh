@@ -73,7 +73,7 @@ public abstract class Window {
         alert.getButtonTypes().setAll(okButton);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == okButton) {
+        if (result.orElseThrow() == okButton) {
             alert.close();
         }
     }

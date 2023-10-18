@@ -13,10 +13,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -39,13 +39,16 @@ public class PurchaseConfirmationWindow extends Window {
         primaryStage.setMaxHeight(scene.getHeight());
 
         primaryStage.setTitle("Order Confirmation");
-        gridPane.setStyle("-fx-background-color: #7aa8c4;");
+        gridPane.setBackground(new Background(new BackgroundFill(Color.web("#7aa8c4"), null, null)));
         gridPane.setVgap(10);
         gridPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         titleLabel = new Label("Order Confirmation");
         titleLabel.setMaxWidth(Double.MAX_VALUE);
-        titleLabel.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-alignment: center; -fx-font-weight: bold;");
+        titleLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+        titleLabel.setTextFill(Color.web("#ffffff"));
+        titleLabel.setFont(Font.font("System", FontWeight.BOLD, 20));
+        titleLabel.setAlignment(Pos.CENTER);
 
         confirmBox = new VBox();
 
