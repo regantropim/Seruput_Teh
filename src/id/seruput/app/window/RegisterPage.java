@@ -5,10 +5,11 @@ import id.seruput.api.data.user.UserGender;
 import id.seruput.api.data.user.UserRole;
 import id.seruput.api.exception.DataValidationException;
 import id.seruput.api.util.logger.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -151,15 +152,15 @@ public class RegisterPage extends Window {
     protected void registerEvent() {
         super.registerEvent();
         login.setOnMouseClicked(this::login);
-        registerButton.setOnMouseClicked(this::register);
+        registerButton.setOnAction(this::register);
     }
 
-    private void login(MouseEvent mouseEvent) {
+    private void login(Event event) {
         LoginPage loginPage = new LoginPage(seruputTeh, primaryStage);
         loginPage.scene();
     }
 
-    private void register(MouseEvent mouseEvent) {
+    private void register(ActionEvent event) {
         try {
             if (!termsAndConditions.isSelected()) {
                 throw new DataValidationException("Please accept the terms and condition");
@@ -190,7 +191,7 @@ public class RegisterPage extends Window {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.orElseThrow() == okButton) {
-                login(mouseEvent);
+                login(event);
             }
 
         } catch (DataValidationException e) {

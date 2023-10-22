@@ -5,6 +5,7 @@ import id.seruput.api.data.user.User;
 import id.seruput.api.exception.CredentialErrorException;
 import id.seruput.api.util.logger.Logger;
 import id.seruput.app.window.main.HomeScene;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -93,14 +94,14 @@ public class LoginPage extends Window {
     protected void registerEvent() {
         super.registerEvent();
         register.setOnMouseClicked(this::register);
-        loginButton.setOnMouseClicked(this::login);
+        loginButton.setOnAction(this::login);
     }
 
     private void register(MouseEvent event) {
         new RegisterPage(seruputTeh, primaryStage).scene();
     }
 
-    private void login(MouseEvent event) {
+    private void login(ActionEvent event) {
         SeruputTeh seruputTeh = seruputTeh();
         String username = this.username.getText();
         String password = this.password.getText();

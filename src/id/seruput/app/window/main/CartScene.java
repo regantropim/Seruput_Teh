@@ -6,10 +6,10 @@ import id.seruput.api.data.product.Product;
 import id.seruput.api.data.user.User;
 import id.seruput.app.window.popup.PurchaseConfirmationWindow;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -187,14 +187,14 @@ public class CartScene extends MainWindow {
     @Override
     protected void registerEvent() {
         super.registerEvent();
-        purchaseButton.setOnMouseClicked(this::onProductPurchase);
-        removeButton.setOnMouseClicked(this::onProductRemove);
-        updateButton.setOnMouseClicked(this::onProductUpdate);
+        purchaseButton.setOnAction(this::onProductPurchase);
+        removeButton.setOnAction(this::onProductRemove);
+        updateButton.setOnAction(this::onProductUpdate);
         quantitySpinner.valueProperty().addListener(this::onQuantityChange);
         list.getSelectionModel().selectedItemProperty().addListener(this::onProductSelected);
     }
 
-    protected void onProductRemove(MouseEvent event) {
+    protected void onProductRemove(ActionEvent event) {
         Cart cart = list.getSelectionModel().getSelectedItem();
         if (cart != null) {
             seruputTeh.cartManager().removeCart(cart);
@@ -220,7 +220,7 @@ public class CartScene extends MainWindow {
         createAlert(Alert.AlertType.INFORMATION, "Information", "Deleted from cart", null);
     }
 
-    protected void onProductUpdate(MouseEvent event) {
+    protected void onProductUpdate(ActionEvent event) {
         Cart cart = list.getSelectionModel().getSelectedItem();
         int spinnerValue = quantitySpinner.getValue();
 
@@ -316,7 +316,7 @@ public class CartScene extends MainWindow {
         }
     }
 
-    private void onProductPurchase(MouseEvent event) {
+    private void onProductPurchase(ActionEvent event) {
         Stage popup = new Stage();
         PurchaseConfirmationWindow window = new PurchaseConfirmationWindow(seruputTeh, popup,
                 () -> new CartScene(seruputTeh, primaryStage).scene());

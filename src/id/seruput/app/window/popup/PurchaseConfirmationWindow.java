@@ -5,6 +5,7 @@ import id.seruput.api.data.cart.Cart;
 import id.seruput.api.data.user.User;
 import id.seruput.api.util.Callback;
 import id.seruput.app.window.Window;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -12,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -102,11 +102,11 @@ public class PurchaseConfirmationWindow extends Window {
     @Override
     protected void registerEvent() {
         super.registerEvent();
-        yesButton.setOnMouseClicked(this::onYesButton);
-        noButton.setOnMouseClicked(this::onNoButton);
+        yesButton.setOnAction(this::onYesButton);
+        noButton.setOnAction(this::onNoButton);
     }
 
-    protected void onYesButton(MouseEvent event) {
+    protected void onYesButton(ActionEvent event) {
         User user = currentUser().orElseThrow();
         List<Cart> cart = seruputTeh().cartManager().findCart(user.id());
 
@@ -129,7 +129,7 @@ public class PurchaseConfirmationWindow extends Window {
         primaryStage.close();
     }
 
-    protected void onNoButton(MouseEvent event) {
+    protected void onNoButton(ActionEvent event) {
         primaryStage.close();
     }
 

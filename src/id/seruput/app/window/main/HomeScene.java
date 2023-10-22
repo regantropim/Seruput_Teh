@@ -5,11 +5,11 @@ import id.seruput.api.data.product.Product;
 import id.seruput.api.data.user.User;
 import id.seruput.api.exception.DataValidationException;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -137,14 +137,14 @@ public class HomeScene extends MainWindow {
         super.registerEvent();
 
         if (!isAdmin) {
-            addCartButton.setOnMouseClicked(this::onAddToCart);
+            addCartButton.setOnAction(this::onAddToCart);
             quantitySpinner.valueProperty().addListener(this::onQuantityChange);
         }
 
         list.getSelectionModel().selectedItemProperty().addListener(this::onProductSelected);
     }
 
-    private void onAddToCart(MouseEvent mouseEvent) {
+    private void onAddToCart(ActionEvent event) {
         User user = currentUser().orElseThrow();
         Product product = list.getSelectionModel().getSelectedItem();
         int quantity = quantitySpinner.getValue();

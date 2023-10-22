@@ -5,9 +5,9 @@ import id.seruput.api.data.product.Product;
 import id.seruput.api.data.user.User;
 import id.seruput.api.exception.DataValidationException;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -235,22 +235,22 @@ public class ProductManagerScene extends MainWindow {
         list.getSelectionModel().selectedItemProperty().addListener(this::onProductSelected);
 
         /* Add Product */
-        addProductButton.setOnMouseClicked(this::onProductCreate);
-        addProductBack.setOnMouseClicked(this::onProductCreateBack);
-        addProduct.setOnMouseClicked(this::onProductCreateConfirm);
+        addProductButton.setOnAction(this::onProductCreate);
+        addProductBack.setOnAction(this::onProductCreateBack);
+        addProduct.setOnAction(this::onProductCreateConfirm);
         productPrice.textProperty().addListener((observable, oldValue, newValue) -> textFieldNumber(observable, oldValue, newValue, productPrice));
         /* End of Add Product */
 
         /* Remove Product */
-        productRemoveButton.setOnMouseClicked(this::onRemoveProduct);
-        removeProductConfirmButton.setOnMouseClicked(this::onRemoveProductConfirm);
-        removeProductCancelButton.setOnMouseClicked(this::onRemoveProductBack);
+        productRemoveButton.setOnAction(this::onRemoveProduct);
+        removeProductConfirmButton.setOnAction(this::onRemoveProductConfirm);
+        removeProductCancelButton.setOnAction(this::onRemoveProductBack);
         /* End of Remove Product */
 
         /* Update Product */
-        productUpdateButton.setOnMouseClicked(this::onProductUpdate);
-        updateProductConfirmButton.setOnMouseClicked(this::onProductUpdateConfirm);
-        updateProductCancelButton.setOnMouseClicked(this::onProductUpdateBack);
+        productUpdateButton.setOnAction(this::onProductUpdate);
+        updateProductConfirmButton.setOnAction(this::onProductUpdateConfirm);
+        updateProductCancelButton.setOnAction(this::onProductUpdateBack);
         updateProductPrice.textProperty().addListener((observable, oldValue, newValue) -> textFieldNumber(observable, oldValue, newValue, updateProductPrice));
         /* End of Update Product */
     }
@@ -280,7 +280,7 @@ public class ProductManagerScene extends MainWindow {
 
     /* Remove Product */
 
-    protected void onRemoveProduct(MouseEvent mouseEvent) {
+    protected void onRemoveProduct(ActionEvent event) {
         Product product = list.getSelectionModel().getSelectedItem();
 
         if (product != null) {
@@ -292,7 +292,7 @@ public class ProductManagerScene extends MainWindow {
         }
     }
 
-    protected void onRemoveProductConfirm(MouseEvent mouseEvent) {
+    protected void onRemoveProductConfirm(ActionEvent event) {
         Product product = list.getSelectionModel().getSelectedItem();
 
         if (product != null) {
@@ -305,11 +305,11 @@ public class ProductManagerScene extends MainWindow {
         }
 
         list.getSelectionModel().clearSelection();
-        onRemoveProductBack(mouseEvent);
+        onRemoveProductBack(event);
         createAlert(Alert.AlertType.INFORMATION, "Message", "Product removed successfully", null);
     }
 
-    protected void onRemoveProductBack(MouseEvent mouseEvent) {
+    protected void onRemoveProductBack(ActionEvent mouseEvent) {
         removeProductBox.setVisible(false);
         addProductButton.setVisible(true);
 
@@ -323,13 +323,13 @@ public class ProductManagerScene extends MainWindow {
 
     /* Add Product */
 
-    protected void onProductCreate(MouseEvent mouseEvent) {
+    protected void onProductCreate(ActionEvent mouseEvent) {
         addProductBox.setVisible(true);
         addProductButton.setVisible(false);
         productEditBox.setVisible(false);
     }
 
-    protected void onProductCreateConfirm(MouseEvent mouseEvent) {
+    protected void onProductCreateConfirm(ActionEvent event) {
         String name = productName.getText();
         int price = Integer.parseInt(productPrice.getText());
         String description = productDescription.getText();
@@ -346,10 +346,10 @@ public class ProductManagerScene extends MainWindow {
 
         createAlert(Alert.AlertType.INFORMATION, "Message", "Product added successfully", null);
 
-        onProductCreateBack(mouseEvent);
+        onProductCreateBack(event);
     }
 
-    protected void onProductCreateBack(MouseEvent mouseEvent) {
+    protected void onProductCreateBack(ActionEvent event) {
         addProductBox.setVisible(false);
         addProductButton.setVisible(true);
 
@@ -367,7 +367,7 @@ public class ProductManagerScene extends MainWindow {
 
     /* Product Update */
 
-    protected void onProductUpdate(MouseEvent mouseEvent) {
+    protected void onProductUpdate(ActionEvent event) {
         Product product = list.getSelectionModel().getSelectedItem();
         if (product != null) {
             updateProductBox.setVisible(true);
@@ -378,7 +378,7 @@ public class ProductManagerScene extends MainWindow {
         }
     }
 
-    protected void onProductUpdateConfirm(MouseEvent mouseEvent) {
+    protected void onProductUpdateConfirm(ActionEvent event) {
         Product product = list.getSelectionModel().getSelectedItem();
         int price = Integer.parseInt(updateProductPrice.getText());
         if (product != null) {
@@ -397,10 +397,10 @@ public class ProductManagerScene extends MainWindow {
             createAlert("Select a product to update", null);
         }
         list.refresh();
-        onProductUpdateBack(mouseEvent);
+        onProductUpdateBack(event);
     }
 
-    protected void onProductUpdateBack(MouseEvent mouseEvent) {
+    protected void onProductUpdateBack(ActionEvent event) {
         updateProductBox.setVisible(false);
         addProductButton.setVisible(true);
         productEditBox.setVisible(true);
