@@ -26,6 +26,7 @@ public class TransactionDetailManagerImpl implements TransactionDetailManager {
         this.repository = new TransactionDetailRepository(database);
     }
 
+    @Override
     public List<TransactionDetail> fetchDetailByTransactionId(TransactionId transactionId) {
         List<TransactionDetail> transactionDetail = transactionDetails.computeIfAbsent(transactionId, k -> new ArrayList<>());
         if (transactionDetail.isEmpty()) {

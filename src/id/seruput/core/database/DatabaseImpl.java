@@ -96,7 +96,7 @@ public final class DatabaseImpl implements Database {
          * Build a new Database object.
          *
          * @param password The password to connect to the database, or null if no
-         * @return A new Database object, or null if fail.
+         * @return A new Database object, or null if failed.
          */
         public Database build(String password) {
             if (database != null && host != null && port != null) {

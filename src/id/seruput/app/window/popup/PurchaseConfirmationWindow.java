@@ -37,8 +37,8 @@ public class PurchaseConfirmationWindow extends Window {
         super(seruputTeh, primaryStage, new Scene(new GridPane(), 350, 250));
         primaryStage.setMaxWidth(scene.getWidth());
         primaryStage.setMaxHeight(scene.getHeight());
-
         primaryStage.setTitle("Order Confirmation");
+
         gridPane.setBackground(new Background(new BackgroundFill(Color.web("#7aa8c4"), null, null)));
         gridPane.setVgap(10);
         gridPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -82,7 +82,7 @@ public class PurchaseConfirmationWindow extends Window {
         GridPane.setHgrow(titleLabel, Priority.ALWAYS);
         gridPane.add(titleLabel, 0, 0);
 
-        // Empty Label to provide space
+        // EMPTY SPACE
         Label emptyLabel = new Label();
         GridPane.setHgrow(emptyLabel, Priority.ALWAYS);
         GridPane.setVgrow(emptyLabel, Priority.ALWAYS);
@@ -92,7 +92,7 @@ public class PurchaseConfirmationWindow extends Window {
         GridPane.setValignment(confirmBox, VPos.CENTER);
         gridPane.add(confirmBox, 0, 2);
 
-        // Empty Label to provide space
+        // EMPTY SPACE
         Label emptyLabel2 = new Label();
         GridPane.setHgrow(emptyLabel2, Priority.ALWAYS);
         GridPane.setVgrow(emptyLabel2, Priority.ALWAYS);

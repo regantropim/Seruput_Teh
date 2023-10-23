@@ -14,4 +14,6 @@ public interface TransactionManager {
     List<Transaction> fetchTransaction(User user);
 
     List<Transaction> fetchTransaction(UserId user);
+
+    List<TransactionDetail> fetchTransactionDetail(Transaction transaction);
 }

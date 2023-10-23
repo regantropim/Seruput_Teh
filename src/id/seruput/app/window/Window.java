@@ -3,6 +3,7 @@ package id.seruput.app.window;
 import id.seruput.api.SeruputTeh;
 import id.seruput.api.data.cart.CartManager;
 import id.seruput.api.data.product.ProductManager;
+import id.seruput.api.data.transaction.TransactionManager;
 import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserManager;
 import id.seruput.api.util.logger.Logger;
@@ -92,6 +93,10 @@ public abstract class Window {
 
     protected Optional<User> currentUser() {
         return seruputTeh.currentUser();
+    }
+
+    protected TransactionManager transactionManager() {
+        return seruputTeh.transactionManager();
     }
 
 }

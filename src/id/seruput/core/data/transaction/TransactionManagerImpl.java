@@ -3,10 +3,7 @@ package id.seruput.core.data.transaction;
 import id.seruput.api.data.Identity;
 import id.seruput.api.data.cart.Cart;
 import id.seruput.api.data.product.ProductManager;
-import id.seruput.api.data.transaction.Transaction;
-import id.seruput.api.data.transaction.TransactionDetailManager;
-import id.seruput.api.data.transaction.TransactionId;
-import id.seruput.api.data.transaction.TransactionManager;
+import id.seruput.api.data.transaction.*;
 import id.seruput.api.data.user.User;
 import id.seruput.api.data.user.UserId;
 import id.seruput.api.database.Database;
@@ -78,8 +75,9 @@ public class TransactionManagerImpl implements TransactionManager {
         return repository.findTransactionByUser(user);
     }
 
-    public List<TransactionId> fetchTransactionDetail(TransactionId transactionId) {
-        return null;
+    @Override
+    public List<TransactionDetail> fetchTransactionDetail(Transaction transaction) {
+        return transactionDetailManager.fetchDetailByTransactionId(transaction.transactionId());
     }
 
 }
