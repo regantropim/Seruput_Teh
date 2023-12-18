@@ -4,9 +4,7 @@ import id.seruput.api.database.Database;
 import id.seruput.api.database.pool.ConnectionPool;
 import id.seruput.api.util.logger.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public final class DatabaseImpl implements Database {
 

@@ -166,6 +166,7 @@ public class ProductManagerScene extends MainWindow {
         updateProductBox = new VBox(10);
         updateProductBox.managedProperty().bind(updateProductBox.visibleProperty());
         updateProductBox.setVisible(false);
+        updateProductBox.setMaxWidth(400);
 
         updateProductLabel = new Label("Update Product");
         updateProductLabel.setFont(Font.font("System", FontWeight.BOLD, 13));
@@ -299,6 +300,7 @@ public class ProductManagerScene extends MainWindow {
             try {
                 productManager().removeProduct(product);
                 list.getItems().remove(product);
+                createAlert(Alert.AlertType.INFORMATION, "Message", "Product removed successfully", null);
             } catch (RuntimeException e) {
                 createAlert("Failed to remove product", null);
             }
@@ -306,7 +308,6 @@ public class ProductManagerScene extends MainWindow {
 
         list.getSelectionModel().clearSelection();
         onRemoveProductBack(event);
-        createAlert(Alert.AlertType.INFORMATION, "Message", "Product removed successfully", null);
     }
 
     protected void onRemoveProductBack(ActionEvent mouseEvent) {

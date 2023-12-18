@@ -66,7 +66,6 @@ public class RegisterPage extends Window {
         accountAsk = new Label("Already have account?");
 
         login = new Label("Login here");
-//        login.setStyle("-fx-text-fill: #007bff;");
         login.setTextFill(Color.web("#007bff"));
 
         genderGroup = new ToggleGroup();

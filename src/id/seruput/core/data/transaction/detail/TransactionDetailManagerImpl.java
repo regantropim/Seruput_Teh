@@ -19,8 +19,6 @@ public class TransactionDetailManagerImpl implements TransactionDetailManager {
     private final Database database;
     private final TransactionDetailRepository repository;
 
-    private final Map<TransactionId, List<TransactionDetail>> transactionDetails = new HashMap<>();
-
     public TransactionDetailManagerImpl(Database database) {
         this.database = database;
         this.repository = new TransactionDetailRepository(database);
@@ -28,12 +26,7 @@ public class TransactionDetailManagerImpl implements TransactionDetailManager {
 
     @Override
     public List<TransactionDetail> fetchDetailByTransactionId(TransactionId transactionId) {
-        List<TransactionDetail> transactionDetail = transactionDetails.computeIfAbsent(transactionId, k -> new ArrayList<>());
-        if (transactionDetail.isEmpty()) {
-            transactionDetail = repository.findByTransactionId(transactionId);
-            transactionDetails.put(transactionId, transactionDetail);
-        }
-        return transactionDetail;
+        return repository.findByTransactionId(transactionId);
     }
 
     @Override

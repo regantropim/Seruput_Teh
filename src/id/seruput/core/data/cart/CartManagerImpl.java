@@ -17,8 +17,6 @@ import java.util.Map;
 public class CartManagerImpl implements CartManager {
 
     private static final Logger logger = Logger.getLogger(CartManagerImpl.class);
-
-    private final Map<UserId, List<Cart>> carts = new HashMap<>();
     private final Database database;
     private final CartRepository repository;
     private final CartDataValidator validator = new CartDataValidator();
@@ -26,34 +24,16 @@ public class CartManagerImpl implements CartManager {
     public CartManagerImpl(Database database) {
         this.database = database;
         this.repository = new CartRepository(database, new CartOperationHelper());
-
-        loadCarts();
-    }
-
-    private void loadCarts() {
-        carts.clear();
-        repository.findAll().forEach(cart -> carts.computeIfAbsent(cart.userId(), userId -> new ArrayList<>()).add(cart));
     }
 
     @Override
     public List<Cart> findCart(UserId userId) {
-        List<Cart> cart = carts.get(userId);
-        if (cart != null) {
-            return carts.computeIfAbsent(userId, userId1 -> new ArrayList<>());
-        }
         return repository.findByUserId(userId);
     }
 
     @Override
     public void updateCart(Cart cart) {
-        try {
-            repository.update(cart);
-            carts.computeIfAbsent(cart.userId(), userId -> new ArrayList<>()).add(cart);
-            logger.info("Cart updated: " + cart);
-        } catch (RuntimeException e) {
-            logger.error("Failed to update cart: " + cart);
-            throw e;
-        }
+        repository.update(cart);
     }
 
     @Override

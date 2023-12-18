@@ -23,8 +23,6 @@ public class TransactionManagerImpl implements TransactionManager {
     private final TransactionDetailManager transactionDetailManager;
     private int highestId;
 
-    private final Map<TransactionId, Transaction> transactions = new HashMap<>();
-
     TransactionManagerImpl(Database database) {
         this.database = database;
         this.repository = new TransactionRepository(database, new TransactionOperationHelper());
@@ -58,11 +56,7 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     public Optional<Transaction> fetchTransaction(TransactionId transactionId) {
-        Transaction transaction = transactions.get(transactionId);
-        if (transaction == null) {
-            return repository.findById(transactionId);
-        }
-        return Optional.of(transaction);
+        return repository.findById(transactionId);
     }
 
     @Override

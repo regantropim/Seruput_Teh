@@ -50,7 +50,7 @@ public abstract class MainWindow extends Window {
         manageProductMenu = new Menu("Manage Products");
         manageProductMenuItem = new MenuItem("Manage Products");
 
-        profileMenu = new Menu("Profile");
+        profileMenu = new Menu("Account");
         purchaseHistoryMenuItem = new MenuItem("Purchase History");
         logoutMenuItem = new MenuItem("Logout");
 

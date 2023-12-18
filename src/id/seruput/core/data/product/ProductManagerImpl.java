@@ -18,8 +18,6 @@ public class ProductManagerImpl implements ProductManager {
     private final DataValidator<Product> validator;
     private final ProductRepository repository;
     private int highestId;
-
-    private final Map<ProductId, Product> products = new HashMap<>();
     private final Logger logger = Logger.getLogger(ProductManagerImpl.class);
 
     ProductManagerImpl(Database database) {
@@ -27,24 +25,15 @@ public class ProductManagerImpl implements ProductManager {
         this.validator = new ProductValidator();
         this.repository = new ProductRepository(database, new ProductOperationHelper());
         this.highestId = repository.findHighestId().map(ProductId::identity).orElse(0);
-        loadProducts();
     }
 
     public static ProductManager build(Database database) {
         return new ProductManagerImpl(database);
     }
 
-    private void loadProducts() {
-        repository.findAll().forEach(product -> products.put(product.productId(), product));
-    }
-
     @Override
     public Optional<Product> fetchProduct(ProductId id) {
-        if (products.containsKey(id)) {
-            return Optional.of(products.get(id));
-        } else {
-            return repository.findById(id);
-        }
+        return repository.findById(id);
     }
 
     @Override
@@ -66,7 +55,6 @@ public class ProductManagerImpl implements ProductManager {
         }
 
         repository.save(product);
-        products.put(product.productId(), product);
         highestId++;
         return product;
     }
@@ -75,7 +63,6 @@ public class ProductManagerImpl implements ProductManager {
     public void updateProduct(Product product) {
         try {
             repository.update(product);
-            products.put(product.productId(), product);
         } catch (RuntimeException e) {
             logger.error("Failed to update product: " + product);
             throw new RuntimeException("Failed to update product", e);
@@ -86,7 +73,6 @@ public class ProductManagerImpl implements ProductManager {
     public void removeProduct(Product product) {
         try {
             repository.delete(product);
-            products.remove(product.productId());
         } catch (RuntimeException e) {
             logger.error("Failed to remove product: " + product);
             throw new RuntimeException("Failed to remove product", e);
@@ -95,7 +81,7 @@ public class ProductManagerImpl implements ProductManager {
 
     @Override
     public List<Product> products() {
-        return new ArrayList<>(products.values());
+        return new ArrayList<>(repository.findAll());
     }
 
     @Override
@@ -104,7 +90,6 @@ public class ProductManagerImpl implements ProductManager {
                 "database=" + database +
                 ", validator=" + validator +
                 ", repository=" + repository +
-                ", products=" + products +
                 ", logger=" + logger +
                 '}';
     }
